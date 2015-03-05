@@ -10,7 +10,7 @@ allprojects {
     apply plugin: "eclipse"
     apply plugin: "idea"
 
-    version = '1.0'
+    version = 'r0'
     ext {
         appName = 'Buildstation3'
         gdxVersion = '1.5.4'
