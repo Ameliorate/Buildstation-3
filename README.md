@@ -7,6 +7,7 @@ Buildstation! In java!
 
 1. Clone repo wherever.
 2. Open eclipse in a new workspace.
+3. Skip to #8 if you have already installed gradle plugins.
 3. Help (Top bar) > Install new software...
 4. In the box right of Work with: (Cerrently filled with "type or select a site"), enter http://dist.springsource.com/snapshot/TOOLS/gradle/nightly
 5. Click the checkbox next to "Extensions / Gradle Intagration"
