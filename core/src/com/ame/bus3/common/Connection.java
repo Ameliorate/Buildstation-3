@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.JsonValue;
 
 public class Connection implements Runnable {
 	
-	public Socket client;
+	public Socket connection;
 	public Thread thread;
 
 	@Override
