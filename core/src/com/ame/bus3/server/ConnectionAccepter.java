@@ -5,6 +5,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import com.ame.bus3.common.Connection;
+
 public class ConnectionAccepter implements Runnable {
 	private ServerSocket serverSocket;
 
@@ -15,7 +17,7 @@ public class ConnectionAccepter implements Runnable {
 		} 
 		catch (IOException e) { }	// Sometimes I wish java would let you have some things without a try catch block. But it's probably for the better.
 		
-		ArrayList<Client> clients = new ArrayList<Client>();
+		ArrayList<Connection> clients = new ArrayList<Connection>();
 		Socket newClient;	// I declare newClient here because creating new variables in try catch blocks makes things not work.
 		
 		while (true) {
@@ -26,7 +28,7 @@ public class ConnectionAccepter implements Runnable {
 				continue;
 			}
 			
-			Client client = new Client();
+			Connection client = new Connection();
 			client.client = newClient;
 			Thread clientThread = new Thread(client, newClient.toString());
 			clientThread.start();
