@@ -29,7 +29,7 @@ public class ConnectionAccepter implements Runnable {
 			}
 			
 			Connection client = new Connection();
-			client.client = newClient;
+			client.connection = newClient;
 			Thread clientThread = new Thread(client, newClient.toString());
 			clientThread.start();
 			client.thread = clientThread;
