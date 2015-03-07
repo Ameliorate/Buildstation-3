@@ -7,6 +7,11 @@ import java.net.Socket;
 
 import org.json.simple.JSONArray;
 
+/**
+ * Stores a connection to a client or server and constantly checks it for new traffic and acts upon said traffic.
+ * @author Amelorate
+ *
+ */
 public class Connection implements Runnable {
 	
 	public Socket connection;
@@ -52,7 +57,7 @@ public class Connection implements Runnable {
 	}
 	
 	/**
-	 * 
+	 * Sends the packet to the connection. You should probably use a sorter's send method though.
 	 * @param packet
 	 */
 	public void send(JSONArray packet) {

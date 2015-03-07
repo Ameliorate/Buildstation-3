@@ -6,7 +6,11 @@ import org.json.simple.JSONObject;
 import com.ame.bus3.common.Connection;
 import com.ame.bus3.common.PacketSorterTracker;
 
-
+/**
+ * Displays a string to the connection's console.
+ * @author Amelorate
+ *
+ */
 public class TerminalDisplay implements PacketSorter {
 	public TerminalDisplay() {
 		PacketSorterTracker.register("TermWrite", this);
@@ -18,7 +22,7 @@ public class TerminalDisplay implements PacketSorter {
 	 */
 	public void sort(JSONObject packet) {
 		// It has one value, message.
-		System.out.println(packet.get("message"));	// It is safe to assume it is in the right format.
+		System.out.println(packet.get("message"));	// It is safe to assume it is in the right format. It would just print null if the key didn't exist.
 	}
 	
 	/**

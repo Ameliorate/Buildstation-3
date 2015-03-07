@@ -1,10 +1,11 @@
 package com.ame.bus3.common;
 
+/**
+ * Holds the location of something on the game map.
+ * @author Amelorate
+ *
+ */
 public class Coordinate {
-	
-	/**
-	 * Holds the location of something on the game map.
-	 */
 	public Coordinate(int x, int y, int z, String level) {
 		this.x = x;
 		this.y = y;

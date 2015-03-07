@@ -7,6 +7,11 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+/**
+ * Main class for the client. Handles client initalition and rendering.
+ * @author Amelorate
+ *
+ */
 public class BuildstationClientMain extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;

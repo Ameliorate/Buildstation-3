@@ -7,6 +7,11 @@ import java.util.ArrayList;
 
 import com.ame.bus3.common.Connection;
 
+/**
+ * Accepts incoming connections as a server.
+ * @author Amelorate
+ *
+ */
 public class ConnectionAccepter implements Runnable {
 	private ServerSocket serverSocket;
 
