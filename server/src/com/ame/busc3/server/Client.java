@@ -4,11 +4,8 @@ import java.net.Socket;
 
 public class Client implements Runnable {
 	
-	private Socket client;
-	
-	public void giveSocket(Socket client)  {
-		this.client = client;
-	}
+	public Socket client;
+	public Thread thread;
 
 	@Override
 	public void run() {

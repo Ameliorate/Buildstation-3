@@ -16,7 +16,6 @@ public class ConnectionAccepter implements Runnable {
 		catch (IOException e) { }	// Sometimes I wish java would let you have some things without a try catch block. But it's probably for the better.
 		
 		ArrayList<Client> clients = new ArrayList<Client>();
-		ArrayList<Thread> clientThreads = new ArrayList<Thread>();
 		Socket newClient;	// I declare newClient here because creating new variables in try catch blocks makes things not work.
 		
 		while (true) {
@@ -28,10 +27,11 @@ public class ConnectionAccepter implements Runnable {
 			}
 			
 			Client client = new Client();
-			client.giveSocket(newClient);
+			client.client = newClient;
 			Thread clientThread = new Thread(client, newClient.toString());
 			clientThread.start();
-			clientThreads.add(clientThread);
+			client.thread = clientThread;
+			clients.add(client);		// Creates a new client, starts a new thread for it, then stores it.
 		}
 	}
 }
