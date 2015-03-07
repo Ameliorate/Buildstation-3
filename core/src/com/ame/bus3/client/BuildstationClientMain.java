@@ -1,5 +1,6 @@
 package com.ame.bus3.client;
 
+import com.ame.bus3.common.Variables;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -12,6 +13,7 @@ public class BuildstationClientMain extends ApplicationAdapter {
 	
 	@Override
 	public void create() {
+		Variables.isServer = false;
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
 	}
