@@ -6,6 +6,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import com.ame.bus3.common.Connection;
+import com.ame.bus3.common.packetsorters.SorterList;
 
 /**
  * Accepts incoming connections as a server.
@@ -39,6 +40,8 @@ public class ConnectionAccepter implements Runnable {
 			clientThread.start();
 			client.thread = clientThread;
 			clients.add(client);		// Creates a new client, starts a new thread for it, then stores it.
+			
+			SorterList.terminalDisplay.send(client, "Testing");
 		}
 	}
 }
