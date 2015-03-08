@@ -20,6 +20,26 @@ public class BuildstationClientMain extends ApplicationAdapter {
 	@Override
 	public void create() {
 		Variables.isServer = false;
+		
+		promptIPPort();
+		
+		batch = new SpriteBatch();
+		img = new Texture("badlogic.jpg");
+	}
+
+	@Override
+	public void render() {
+		Gdx.gl.glClearColor(1, 0, 0, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		batch.begin();
+		batch.draw(img, 0, 0);
+		batch.end();
+	}
+	
+	/**
+	 * Prompts the user for the IP and port to connect to. Doesn't actually connect though.
+	 */
+	private void promptIPPort() {
 		String[] serverPortIPSplit;
 		String serverPortIP;
 		
@@ -53,17 +73,5 @@ public class BuildstationClientMain extends ApplicationAdapter {
 			}
 			Utilities.popupMessage("Invalid Input", serverPortIP + " Contains more than or less than 1 slash [/].");
 		}
-		
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
-	}
-
-	@Override
-	public void render() {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
 	}
 }
