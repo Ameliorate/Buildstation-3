@@ -52,7 +52,10 @@ public class PacketSorterTracker {
 		for (int i = 0; i < valuesArray.length; i++) {
 			sorter = (String) valuesArray[i].get("sorter");
 			sorting = valuesArray[i];
-			sorters.get(sorter).sort(sorting);
+			if (sorters.get(sorter) != null) {	// Accounting for if a malformed packet is sent.
+				sorters.get(sorter).sort(sorting);
+			}
+				
 		}
 	}
 }
