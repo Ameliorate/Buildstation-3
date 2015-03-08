@@ -12,7 +12,14 @@ public class Variables {
 	public static boolean isServer;
 	
 	/**
+	 * The IP address of the server being connected to.
+	 */
+	public static String serverIP;
+	
+	/**
 	 * Which port to use when connecting to a client/server.
 	 */
 	public static int port = 0;
+	
+	
 }
