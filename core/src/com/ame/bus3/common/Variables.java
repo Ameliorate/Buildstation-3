@@ -21,5 +21,9 @@ public class Variables {
 	 */
 	public static int port = 0;
 	
-	
+	/**
+	 * What the renderer will render.
+	 * Valid options are "game" and "mainmenu" for now.
+	 */
+	public static String renderMode = "mainmenu";
 }

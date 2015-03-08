@@ -51,9 +51,9 @@ public class Connection implements Runnable {
 		} 
 		catch (IOException e) {}
 		
+		System.out.println("[Info] Connection " + connection.toString() + " closed.");
 		connection = null;	// I'm not sure if this is necessary, but it can't do any harm.
 		thread = null;
-		System.out.println("[Info] Connection " + connection.toString() + " closed.");
 	}
 	
 	/**
