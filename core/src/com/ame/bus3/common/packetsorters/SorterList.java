@@ -6,5 +6,15 @@ package com.ame.bus3.common.packetsorters;
  *
  */
 public class SorterList {
-	public static TerminalDisplay terminalDisplay = new TerminalDisplay();
+	private static boolean loaded = false; // Used to make sure packetsorters aren't loaded twice. Could probably cause issues if they were.
+	/**
+	 * Loads all the sorters. Needs to be called at the start of every program.
+	 */
+	public static void loadSorters() {
+		if (loaded == false) {
+			terminalDisplay = new TerminalDisplay();
+		}
+	}
+	
+	public static TerminalDisplay terminalDisplay;
 }

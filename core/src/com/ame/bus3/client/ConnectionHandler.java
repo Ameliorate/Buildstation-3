@@ -16,17 +16,26 @@ public class ConnectionHandler {
 	 */
 	public static void connect() {
 		if (server == null) {
-			ConnectionHandler.promptIPPort();
+			promptIPPort();
 			server = new Connection();
-			try {
-				server.connection = new Socket(Variables.serverIP, Variables.port);
-			} 
-			catch (UnknownHostException e) {
-				Utilities.popupMessage("Connection Error", "The server could not be resolved. \nPlease enter a new server to connect to.");
-				promptIPPort();
-			}
-			catch (IOException e) {		// It's throwing this exception and I don't know why.
-				Utilities.popupMessage("Connection Error", "The server refused the connection. \nPlease enter a new server to connect to.");
+			boolean errored = false;
+			while (true) {
+				try {
+					server.connection = new Socket(Variables.serverIP, Variables.port);
+				} 
+				catch (UnknownHostException e) {
+					Utilities.popupMessage("Connection Error", "The server could not be resolved. \nPlease enter a new server to connect to.");
+					promptIPPort();
+					errored = true;
+				}
+				catch (IOException e) {		// It's throwing this exception and I don't know why.
+					Utilities.popupMessage("Connection Error", "The server refused the connection. \nPlease enter a new server to connect to.");
+					promptIPPort();
+					errored = true;
+				}
+				
+				if (errored == false)
+					break;
 			}
 			
 			server.thread = new Thread(server);
