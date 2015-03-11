@@ -62,9 +62,7 @@ public class PacketSorterTracker {
 					continue;	// It is better to drop a packet than to crash. Servers should be atleast moderately difficult to crash.
 				}
 				
-				sorter = sorter.trim();
-				System.out.println(sorter);
-				
+				sorter = sorter.trim(); // I'm not entirely sure this is necessary, but can trim out some errors if some whitespace gets here.
 				try {
 					sorters.get(sorter).sort(sorting);
 				}

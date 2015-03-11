@@ -41,7 +41,7 @@ public class ConnectionAccepter implements Runnable {
 			client.thread = clientThread;
 			clients.add(client);		// Creates a new client, starts a new thread for it, then stores it.
 			
-			SorterList.terminalDisplay.send(client, "Testing");
+			SorterList.terminalDisplay.send(client, "Successfully connected to server");
 		}
 	}
 }
