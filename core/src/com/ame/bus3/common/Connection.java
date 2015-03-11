@@ -29,6 +29,8 @@ public class Connection implements Runnable {
 			catch (IOException e) {}
 			String data;
 			
+			System.out.println("[Info] Connection " + toString() + " has opened.");
+			
 			while (true) {
 				try {
 					data = connectionGet.readUTF();
@@ -42,6 +44,11 @@ public class Connection implements Runnable {
 		}
 	}
 	
+	@Override
+	public String toString() {
+		return Integer.toString(connection.hashCode()); // This can be and probably should be changed when I implement usernames and the like.
+	}
+	
 	/**
 	 * Disconnects and cleans up stuff. You still will need to clean up any references to this class though.
 	 */
@@ -51,7 +58,7 @@ public class Connection implements Runnable {
 		} 
 		catch (IOException e) {}
 		
-		System.out.println("[Info] Connection " + connection.toString() + " closed.");
+		System.out.println("[Info] Connection " + toString() + " closed.");
 		connection = null;	// I'm not sure if this is necessary, but it can't do any harm.
 		thread = null;
 	}
