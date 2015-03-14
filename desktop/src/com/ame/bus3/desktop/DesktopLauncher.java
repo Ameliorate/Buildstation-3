@@ -7,6 +7,6 @@ import com.ame.bus3.client.BuildstationClientMain;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new BuildstationClientMain(), config);
+		new LwjglApplication(new BuildstationClientMain(DesktopLauncher.class), config);
 	}
 }
