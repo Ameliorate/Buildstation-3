@@ -6,6 +6,8 @@ package com.ame.bus3.common;
  *
  */
 public class Coordinate {
+	public Coordinate() {}
+
 	public Coordinate(int x, int y, int z, String level) {
 		this.x = x;
 		this.y = y;
