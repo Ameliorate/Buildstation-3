@@ -38,7 +38,7 @@ public class ConnectionHandler {
 					break;
 			}
 			
-			server.thread = new Thread(server);
+			server.thread = new Thread(server, "server-connection-in");
 			server.thread.start();
 		}
 		else
@@ -62,7 +62,7 @@ public class ConnectionHandler {
 		String serverPortIP;
 		
 		while (true) {	// Prompt the user for the ip and port.
-			serverPortIP = Utilities.popupPrompt("Buildstation", "Enter a IP/Port to connect to:", "127.0.0.1/25566");
+			serverPortIP = Utilities.popupPrompt("BuildStation", "Enter a IP/Port to connect to:", "127.0.0.1/25566");
 			try {
 				serverPortIPSplit = serverPortIP.split("/");
 			}

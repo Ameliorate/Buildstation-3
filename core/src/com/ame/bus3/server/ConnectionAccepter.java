@@ -36,9 +36,8 @@ public class ConnectionAccepter implements Runnable {
 			
 			Connection client = new Connection();
 			client.connection = newClient;
-			Thread clientThread = new Thread(client, newClient.toString());
-			clientThread.start();
-			client.thread = clientThread;
+			client.thread = new Thread(client, "client-" + client.toString());
+            client.thread.start();
 			clients.add(client);		// Creates a new client, starts a new thread for it, then stores it.
 			
 			SorterList.terminalDisplay.send(client, "[Info] Successfully connected to server");
