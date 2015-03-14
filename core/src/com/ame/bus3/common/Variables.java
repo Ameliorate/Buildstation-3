@@ -3,7 +3,6 @@ package com.ame.bus3.common;
 /**
  * Stores variables important to multiple pieces of code in a single location.
  * @author Amelorate
- *
  */
 public class Variables {
 	/**
@@ -23,7 +22,12 @@ public class Variables {
 	
 	/**
 	 * What the renderer will render.
-	 * Valid options are "game" and "mainmenu" for now.
+	 * Valid options are "tiles" and "mainmenu" for now.
 	 */
 	public static String renderMode = "mainmenu";
+
+	/**
+	 * The main map of the game.
+	 */
+	public static GameMap map = new GameMap();
 }
