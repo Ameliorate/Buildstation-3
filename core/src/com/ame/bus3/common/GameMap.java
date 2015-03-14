@@ -46,4 +46,15 @@ public class GameMap {
 		remove(source);
 		place(moving, destination);
 	}
+
+	/**
+	 * Spawns a tile at the given location.
+	 */
+	public void spawn(Coordinate location, String tileName) {
+		Tile spawner = get(new Coordinate(0, 0, 0, tileName + "_Spawner"));
+		if (spawner == null)
+			throw new IllegalArgumentException("Nonexistent tile");
+		else
+			spawner.clone(location);
+	}
 }
