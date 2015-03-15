@@ -19,10 +19,15 @@ public class Coordinate implements JSONAware {
 	}
 
 	public Coordinate(JSONObject object) {
-		x = (Integer) object.get("x");
-		y = (Integer) object.get("y");
-		z = (Integer) object.get("z");
-		level = (String) object.get("level");
+		try {
+			x = (Integer) object.get("x");
+			y = (Integer) object.get("y");
+			z = (Integer) object.get("z");
+			level = (String) object.get("level");
+		}
+		catch (ClassCastException e) {
+			throw new IllegalArgumentException("JsonObject lacks a x, y, z, or level field of the right type.", e);
+		}
 	}
 
 	@Override
