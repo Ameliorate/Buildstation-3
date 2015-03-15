@@ -30,9 +30,4 @@ public class Variables {
 	 * The main map of the game.
 	 */
 	public static GameMap map = new GameMap();
-
-	/**
-	 * The class that is running the game.
-	 */
-	public static  Class  mainClass;
 }

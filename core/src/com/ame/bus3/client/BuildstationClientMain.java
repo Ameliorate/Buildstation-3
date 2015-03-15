@@ -14,9 +14,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  *
  */
 public class BuildstationClientMain extends ApplicationAdapter {
-	public BuildstationClientMain(Class running) {
-
-	}
 	SpriteBatch batch;
 	Texture img;
 	
