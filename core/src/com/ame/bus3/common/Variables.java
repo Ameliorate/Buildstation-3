@@ -19,12 +19,6 @@ public class Variables {
 	 * Which port to use when connecting to a client/server.
 	 */
 	public static int port = 0;
-	
-	/**
-	 * What the renderer will render.
-	 * Valid options are "tiles" and "mainmenu" for now.
-	 */
-	public static String renderMode = "mainmenu";
 
 	/**
 	 * The main map of the game.

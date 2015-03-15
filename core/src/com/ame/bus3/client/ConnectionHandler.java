@@ -51,7 +51,6 @@ public class ConnectionHandler {
 	public static void disconnect() {
 		server.disconnect();
 		server = null;
-		Variables.renderMode = "mainmenu";
 	}
 	
 	/**
