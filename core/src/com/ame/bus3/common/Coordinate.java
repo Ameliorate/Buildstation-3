@@ -1,11 +1,14 @@
 package com.ame.bus3.common;
 
+import org.json.simple.JSONAware;
+import org.json.simple.JSONObject;
+
 /**
  * Holds the location of something on the game map.
  * @author Amelorate
  *
  */
-public class Coordinate {
+public class Coordinate implements JSONAware {
 	public Coordinate() {}
 
 	public Coordinate(int x, int y, int z, String level) {
@@ -14,7 +17,14 @@ public class Coordinate {
 		this.z = z;
 		this.level = level;
 	}
-	
+
+	public Coordinate(JSONObject object) {
+		x = (Integer) object.get("x");
+		y = (Integer) object.get("y");
+		z = (Integer) object.get("z");
+		level = (String) object.get("level");
+	}
+
 	@Override
 	public String toString() {
 		Integer x = this.x;
@@ -23,9 +33,23 @@ public class Coordinate {
 		
 		return x.toString() + "," + y.toString() + "," + z.toString() + "," + level;
 	}
+
+	@Override
+	public String toJSONString() {
+		JSONObject json = new JSONObject();
+
+		json.put("x", x);
+		json.put("y", y);
+		json.put("z", z);
+		json.put("level", level);
+
+		return  json.toString();
+	}
 	
 	public int x;
 	public int y;
 	public int z;
 	public String level;
+
+
 }

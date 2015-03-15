@@ -38,4 +38,9 @@ public interface Tile {
 	 * Sets the internal data of the class to what is specified inside the json object.
 	 */
 	public void setData(JSONObject data);
+
+	/**
+	 * Gets the type of the tile.
+	 */
+	public String getType();
 }
