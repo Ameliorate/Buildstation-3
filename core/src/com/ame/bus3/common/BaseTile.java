@@ -15,7 +15,7 @@ public abstract class BaseTile implements Tile {
 		/*
 		If this class wasn't abstract, the code here would be:
 		Variables.map.place(new BaseTile(), location);
-		For more detailed classes you could use your
+		For more detailed classes you could use your getData and setData classes.
 		*/
 	}
 
