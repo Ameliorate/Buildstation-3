@@ -1,5 +1,7 @@
 package com.ame.bus3.common;
 
+import com.sun.org.apache.xml.internal.utils.URI;
+
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -42,7 +44,7 @@ public class TilePackageLoader {
 				loadingURLs = new URL[]{loadingURL};
 				loader = new URLClassLoader(loadingURLs);
 				try {
-					loadingClass = loader.loadClass("org.loader");
+					loadingClass = loader.loadClass("foo");
 				}
 				catch (ClassNotFoundException e) {
 					System.out.println("[Error] Bad contentpackage. Skipping...");
