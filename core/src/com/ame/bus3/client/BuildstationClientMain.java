@@ -1,5 +1,6 @@
 package com.ame.bus3.client;
 
+import com.ame.bus3.common.TileRegisterer;
 import com.ame.bus3.common.Variables;
 import com.ame.bus3.common.packetsorters.SorterList;
 import com.badlogic.gdx.ApplicationAdapter;
@@ -21,7 +22,8 @@ public class BuildstationClientMain extends ApplicationAdapter {
 	public void create() {
 		SorterList.loadSorters();
 		Variables.isServer = false;
-		
+
+		TileRegisterer.load();
 		ConnectionHandler.connect();
 		
 		batch = new SpriteBatch();
