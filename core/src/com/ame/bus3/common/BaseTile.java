@@ -11,15 +11,6 @@ public abstract class BaseTile implements Tile {
 	protected Coordinate position = new Coordinate();
 
 	@Override
-	public void clone(Coordinate location) {
-		/*
-		If this class wasn't abstract, the code here would be:
-		Variables.map.place(new BaseTile(), location);
-		For more detailed classes you could use your getData and setData classes.
-		*/
-	}
-
-	@Override
 	public SpriteState renderTick() {
 		return spriteState;
 	}
