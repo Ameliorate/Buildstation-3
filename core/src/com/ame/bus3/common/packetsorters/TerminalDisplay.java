@@ -20,7 +20,8 @@ public class TerminalDisplay implements PacketSorter {
 	 * Acts upon the given packet.
 	 * @param packet The packet you want to send
 	 */
-	public void sort(JSONObject packet) {
+	@Override
+	public void sort(JSONObject packet, Connection sending) {
 		// It has one value, message.
 		System.out.println(packet.get("message"));	// It is safe to assume it is in the right format. It would just print null if the key didn't exist.
 	}

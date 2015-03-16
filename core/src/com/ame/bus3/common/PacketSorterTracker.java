@@ -30,7 +30,7 @@ public class PacketSorterTracker {
 	 * Sorts a basic network packet before it has been converted to a json object and calls all the necessary functions.
 	 * @param packet The packet you are sorting.
 	 */
-	public static void sort(String packet) {
+	public static void sort(String packet, Connection sending) {
 		JSONArray packetArray = new JSONArray();
 		
 		try {
@@ -64,7 +64,7 @@ public class PacketSorterTracker {
 				
 				sorter = sorter.trim(); // I'm not entirely sure this is necessary, but can trim out some errors if some whitespace gets here.
 				try {
-					sorters.get(sorter).sort(sorting);
+					sorters.get(sorter).sort(sorting, sending);
 				}
 				catch (NullPointerException e) {
 					System.out.println("[Error] Malformed packet. sorterBeingRun is null. Full packet text:\n" + packet);

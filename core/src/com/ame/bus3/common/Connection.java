@@ -39,7 +39,7 @@ public class Connection implements Runnable {
 					disconnect();
 					break;	// The client has disconnected, so end the loop.
 				}
-				PacketSorterTracker.sort(data);
+				PacketSorterTracker.sort(data, this);
 			}
 		}
 	}

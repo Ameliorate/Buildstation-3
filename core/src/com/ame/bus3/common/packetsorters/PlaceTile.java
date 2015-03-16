@@ -14,7 +14,7 @@ public class PlaceTile implements PacketSorter {
 	}
 
 	@Override
-	public void sort(JSONObject packet) {
+	public void sort(JSONObject packet, Connection sending) {
 		if (Variables.isServer == false) {
 			JSONObject tileData = null;
 			String tileType = null;

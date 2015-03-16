@@ -9,7 +9,7 @@ import com.ame.bus3.common.Utilities;
 import com.ame.bus3.common.Variables;
 
 public class ConnectionHandler {
-	private static Connection server = null;
+	public static Connection server = null;
 	
 	/**
 	 * Connects to the ip and port specified in the variables class.

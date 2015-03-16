@@ -1,5 +1,6 @@
 package com.ame.bus3.common.packetsorters;
 
+import com.ame.bus3.common.Connection;
 import org.json.simple.JSONObject;
 
 /**
@@ -12,5 +13,5 @@ public interface PacketSorter {
 	 * Acts upon the given packet.
 	 * @param packet The packet you want to process.
 	 */
-	public void sort(JSONObject packet);
+	public void sort(JSONObject packet, Connection sending);
 }
