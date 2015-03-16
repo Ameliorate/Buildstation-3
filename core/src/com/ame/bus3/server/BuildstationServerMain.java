@@ -14,10 +14,11 @@ public class BuildstationServerMain {
 	 * Starts the server.
 	 */
 	public void create() {
+		Variables.isServer = true;	// Make sure this is done first.
+
 		TileRegisterer.load();		// Registerers tiles.
 
 		SorterList.loadSorters();		// Begin networking
-		Variables.isServer = true;
 		Variables.port = 25566;
 		ConnectionAccepter accepter = new ConnectionAccepter();
 		Thread accepterThread = new Thread(accepter, "ConnectionAccepter");
