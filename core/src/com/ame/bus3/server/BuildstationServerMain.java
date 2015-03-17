@@ -1,7 +1,6 @@
 package com.ame.bus3.server;
 
 import com.ame.bus3.common.Coordinate;
-import com.ame.bus3.common.Tile;
 import com.ame.bus3.common.TileRegisterer;
 import com.ame.bus3.common.Tiles.Wall;
 import com.ame.bus3.common.Variables;
@@ -20,15 +19,18 @@ public class BuildstationServerMain {
 		Variables.isServer = true;	// Make sure this is done first.
 
 		TileRegisterer.load();		// Registerers tiles.
+		System.out.println("[Info] Loaded tiles.");
 
 		Variables.map.fill(new Coordinate(0, 0, 0, "default"), new Coordinate(15, 15, 0, "default"), new Wall());
+		System.out.println("[Info] Populated map.");
 
 		SorterList.loadSorters();		// Begin networking
 		Variables.port = 25566;
-		ConnectionAccepter accepter = new ConnectionAccepter();
-		Thread accepterThread = new Thread(accepter, "ConnectionAccepter");
-		accepterThread.start();		// End networking
+		ConnectionAcceptor acceptor = new ConnectionAcceptor();
+		Thread acceptorThread = new Thread(acceptor, "ConnectionAcceptor");
+		acceptorThread.start();		// End networking
+		System.out.println("[Info] Loaded networking.");
 		
-		System.out.println("[Info] Finished initalising");
+		System.out.println("[Info] Finished initialising.");
 	}
 }
