@@ -67,4 +67,17 @@ public class GameMap {
 		spawn(location, tileName);
 		get(location).setData(data);
 	}
+
+	/**
+	 * Fills a square area with the filling tile.
+	 * @param finish Note that the level value of this is ignored.
+	 * @param fillingTile The tile you are filling the area with.
+	 */
+	public void fill(Coordinate start, Coordinate finish, Tile fillingTile) {
+		for (int x = start.x; x <= finish.x; x++)
+			for (int y = start.y; y <= finish.y; y++)
+				for (int z = start.z; z <= finish.z; z++) {
+					fillingTile.clone(new Coordinate(x, y, z, start.level));
+				}
+	}
 }
