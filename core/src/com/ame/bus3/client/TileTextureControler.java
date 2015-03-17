@@ -14,14 +14,15 @@ public class TileTextureControler {
 	/**
 	 * Registers a new texture.
 	 */
-	public static void register(String name, Texture texture) {
-		textureHashMap.put(name, texture);
+	public static void register(String name, String texture) {
+		if (get(name) == null)
+			textureHashMap.put(name, new Texture(texture));
 	}
 
 	/**
 	 * Gets a texture based on it's name.
 	 */
-	public static void get(String name) {
-		textureHashMap.get(name);
+	public static Texture get(String name) {
+		return textureHashMap.get(name);
 	}
 }
