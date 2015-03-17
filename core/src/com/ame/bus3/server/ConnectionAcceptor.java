@@ -13,7 +13,7 @@ import com.ame.bus3.common.packetsorters.SorterList;
  * @author Amelorate
  *
  */
-public class ConnectionAccepter implements Runnable {
+public class ConnectionAcceptor implements Runnable {
 	private ServerSocket serverSocket;
 
 	@Override
