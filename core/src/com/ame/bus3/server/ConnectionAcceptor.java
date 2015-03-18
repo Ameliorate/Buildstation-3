@@ -21,7 +21,10 @@ public class ConnectionAcceptor implements Runnable {
 		try {
 			serverSocket = new ServerSocket(25566);
 		} 
-		catch (IOException e) { }	// Sometimes I wish java would let you have some things without a try catch block. But it's probably for the better.
+		catch (IOException e) {
+			System.out.println("[Fatal] IOException. Address already in use. Try rebooting.");
+			System.exit(1);
+		}
 		
 		ArrayList<Connection> clients = new ArrayList<Connection>();
 		Socket newClient;	// I declare newClient here because creating new variables in try catch blocks makes things not work.
