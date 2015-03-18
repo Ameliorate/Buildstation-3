@@ -21,6 +21,7 @@ public class GetTile implements PacketSorter {
 		try {
 			Coordinate location = new Coordinate((JSONObject) packet.get("location"));
 			SorterList.placeTile.send(sending, Variables.map.get(location));
+			SorterList.waitUntill.send(sending, "got");
 		}
 		catch (ClassCastException e) {
 			System.out.println("[Error] Malformed packet. Full packet text: \n" + packet.toString());

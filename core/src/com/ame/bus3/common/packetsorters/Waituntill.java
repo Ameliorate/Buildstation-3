@@ -29,7 +29,6 @@ public class Waituntill implements PacketSorter {
 			System.out.println("[Error] Malformed packet. Full text:\n" + packet.toString());
 			return;		// Just learnt this today. Finally I don't need a if the thing isn't null block.
 		}
-
 		finished.put(taskFinished, true);
 	}
 
@@ -53,18 +52,14 @@ public class Waituntill implements PacketSorter {
 	 */
 	public void wait(String waitingCondition) {
 		finished.put(waitingCondition, false);
+		int previousPriority = Thread.currentThread().getPriority();
+		Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
 
 		while(true) {
-			try {
-				wait();
-			}
-			catch (InterruptedException e) {
-				continue;
-			}
-
 			if (finished.get(waitingCondition) == false)
 				continue;
 			else {
+				Thread.currentThread().setPriority(previousPriority);
 				break;
 			}
 		}

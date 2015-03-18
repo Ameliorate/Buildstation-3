@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.Texture;
 public class Wall extends BaseTile {
 	public Wall() {
 		if (Variables.isServer == false)
-			TileTextureControler.register("Wall", new Texture("Wall.jpg"));
+			TileTextureControler.register("Wall", "Wall.jpg");
 		spriteState.texture = "Wall";
 	}
 

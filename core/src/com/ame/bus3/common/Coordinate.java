@@ -20,9 +20,12 @@ public class Coordinate implements JSONAware {
 
 	public Coordinate(JSONObject object) {
 		try {
-			x = (Integer) object.get("x");
-			y = (Integer) object.get("y");
-			z = (Integer) object.get("z");
+			Long xLong = (Long) object.get("x");	// Wish you could cast a Boxed long to a primitive int in one step.
+			x = xLong.intValue();
+			Long yLong = (Long) object.get("y");
+			y = yLong.intValue();
+			Long zLong = (Long) object.get("z");
+			z = zLong.intValue();
 			level = (String) object.get("level");
 		}
 		catch (ClassCastException e) {
