@@ -1,9 +1,6 @@
 package com.ame.bus3.common.packetsorters;
 
-import com.ame.bus3.common.Connection;
-import com.ame.bus3.common.Coordinate;
-import com.ame.bus3.common.PacketSorterTracker;
-import com.ame.bus3.common.Variables;
+import com.ame.bus3.common.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -20,7 +17,16 @@ public class GetTile implements PacketSorter {
 	public void sort(JSONObject packet, Connection sending) {
 		try {
 			Coordinate location = new Coordinate((JSONObject) packet.get("location"));
-			SorterList.placeTile.send(sending, Variables.map.get(location));
+			Tile getting;
+
+			while (true) {
+				getting = Variables.map.get(location);
+				if (getting == null)
+					break;
+
+				SorterList.placeTile.send(sending, getting);
+				location.z++;
+			}
 			SorterList.waitUntill.send(sending, "got");
 		}
 		catch (ClassCastException e) {
