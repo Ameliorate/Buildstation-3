@@ -57,7 +57,7 @@ public class ConnectionHandler {
 	 * Prompts the user for the IP and port to connect to. Doesn't actually connect though.
 	 */
 	public static void promptIPPort() {
-		String[] serverPortIPSplit;
+		String[] serverPortIPSplit = new String[0];
 		String serverPortIP;
 		
 		while (true) {	// Prompt the user for the ip and port.
@@ -66,8 +66,7 @@ public class ConnectionHandler {
 				serverPortIPSplit = serverPortIP.split("/");
 			}
 			catch (NullPointerException e) {
-				Utilities.popupMessage("Invalid Input", "Cancel is not a valid option.");
-				continue;
+				System.exit(0);
 			}
 			
 			if (serverPortIPSplit.length == 2) {
