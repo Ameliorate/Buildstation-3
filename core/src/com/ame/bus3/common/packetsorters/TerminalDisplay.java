@@ -39,6 +39,6 @@ public class TerminalDisplay implements PacketSorter {
 		value.put("message", message);
 		value.put("sorter", "TermWrite");
 		sendingPacket.add(value);		// I think I like this json library more than the libgdx one.
-		sending.send(sendingPacket);	// The final packet would be along the lines of "[ { message : "foo" } ]" if the message was "foo"
+		sending.send(sendingPacket);
 	}
 }
