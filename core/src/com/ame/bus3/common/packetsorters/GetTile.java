@@ -1,6 +1,11 @@
 package com.ame.bus3.common.packetsorters;
 
-import com.ame.bus3.common.*;
+import com.ame.bus3.common.Connection;
+import com.ame.bus3.common.Coordinate;
+import com.ame.bus3.common.PacketSorterTracker;
+import com.ame.bus3.common.Tile;
+import com.ame.bus3.common.Tiles.Wall;
+import com.ame.bus3.common.Variables;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -21,8 +26,11 @@ public class GetTile implements PacketSorter {
 
 			while (true) {
 				getting = Variables.map.get(location);
-				if (getting == null)
+				if (getting == null && location.z != 0)
 					break;
+				else if (getting == null && location.z == 0) { // TODO: Replace placing a wall tile with a gamemodecontroler place tile call when that is added.
+					Variables.map.place(new Wall(), location);
+				}
 
 				SorterList.placeTile.send(sending, getting);
 				location.z++;
@@ -37,6 +45,7 @@ public class GetTile implements PacketSorter {
 	/**
 	 * Gets a tile from the server.
 	 */
+	@SuppressWarnings("unchecked")
 	public void send(Connection connection, Coordinate location) {
 		JSONArray packet = new JSONArray();
 		JSONObject innerPacket = new JSONObject();
