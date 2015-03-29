@@ -48,12 +48,21 @@ public class GetTile implements PacketSorter {
 	@SuppressWarnings("unchecked")
 	public void send(Connection connection, Coordinate location) {
 		JSONArray packet = new JSONArray();
+
+		packet.add(getInnerPacket(location));
+		connection.send(packet);
+	}
+
+	/**
+	 * Gets the packet that send would send to the server.
+	 */
+	@SuppressWarnings("unchecked")
+	public JSONObject getInnerPacket(Coordinate location) {
 		JSONObject innerPacket = new JSONObject();
 
 		innerPacket.put("sorter", "GetTile");
 		innerPacket.put("location", location);
 
-		packet.add(innerPacket);
-		connection.send(packet);
+		return innerPacket;
 	}
 }

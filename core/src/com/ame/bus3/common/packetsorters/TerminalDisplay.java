@@ -34,11 +34,22 @@ public class TerminalDisplay implements PacketSorter {
 	@SuppressWarnings("unchecked")
 	public void send(Connection sending, String message) {
 		JSONArray sendingPacket = new JSONArray();
+
+		sendingPacket.add(getInnerPacket(message));
+		sending.send(sendingPacket);
+	}
+
+	/**
+	 * Gets the inner packet that would be sent to the client.
+	 * @param message The message you are displaying in the connection's terminal.
+	 */
+	@SuppressWarnings("unchecked")
+	public JSONObject getInnerPacket(String message) {
 		JSONObject value = new JSONObject();
-		
+
 		value.put("message", message);
 		value.put("sorter", "TermWrite");
-		sendingPacket.add(value);		// I think I like this json library more than the libgdx one.
-		sending.send(sendingPacket);
+
+		return value;
 	}
 }

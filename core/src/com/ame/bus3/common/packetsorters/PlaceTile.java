@@ -38,11 +38,23 @@ public class PlaceTile implements PacketSorter {
 	 * @param connection The client you are sending the packet to.
 	 * @param placing The tile you are placing.
 	 */
+	@SuppressWarnings("unchecked")
 	public void send(Connection connection, Tile placing) {
+		JSONArray packet = new JSONArray();
+
+		packet.add(getInnerPacket(placing));
+		connection.send(packet);
+	}
+
+	/**
+	 * Gets the packet send would send to the client
+	 * @param placing The tile you are placing.
+	 */
+	@SuppressWarnings("unchecked")
+	public JSONObject getInnerPacket(Tile placing) {
 		JSONObject tileData = placing.getData();
 		Coordinate position = placing.getPosition();
 		String tileType = placing.getType();
-		JSONArray packet = new JSONArray();
 		JSONObject innerPacket = new JSONObject();
 
 		innerPacket.put("sorter", "PlaceTile");
@@ -50,7 +62,6 @@ public class PlaceTile implements PacketSorter {
 		innerPacket.put("type", tileType);
 		innerPacket.put("location", position);
 
-		packet.add(innerPacket);
-		connection.send(packet);
+		return innerPacket;
 	}
 }

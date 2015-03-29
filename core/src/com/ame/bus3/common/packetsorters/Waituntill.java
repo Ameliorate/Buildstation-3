@@ -34,17 +34,28 @@ public class Waituntill implements PacketSorter {
 
 	/**
 	 * Sends the specified packet.
-	 * @param finished What you have finished.
+	 * @param finished What you have finished doing.
 	 */
+	@SuppressWarnings("unchecked")
 	public void send(Connection sending, String finished) {
-		JSONObject innerPacket = new JSONObject();
 		JSONArray packet = new JSONArray();
+
+		packet.add(getInnerPacket(finished));
+		sending.send(packet);
+	}
+
+	/**
+	 * Gets the inner packet that would be sent to the connection. Doesn't send it.
+	 * @param finished What you have finished doing.
+	 */
+	@SuppressWarnings("unchecked")
+	public JSONObject getInnerPacket(String finished) {
+		JSONObject innerPacket = new JSONObject();
 
 		innerPacket.put("sorter", "WaitUntill");
 		innerPacket.put("finished", finished);
 
-		packet.add(innerPacket);
-		sending.send(packet);
+		return innerPacket;
 	}
 
 	/**
