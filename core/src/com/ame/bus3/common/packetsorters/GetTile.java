@@ -19,10 +19,12 @@ public class GetTile implements PacketSorter {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public void sort(JSONObject packet, Connection sending) {
 		try {
 			Coordinate location = new Coordinate((JSONObject) packet.get("location"));
 			Tile getting;
+			JSONArray outerPacket = new JSONArray();
 
 			while (true) {
 				getting = Variables.map.get(location);
@@ -32,10 +34,14 @@ public class GetTile implements PacketSorter {
 					Variables.map.place(new Wall(), location);
 				}
 
-				SorterList.placeTile.send(sending, getting);
+				outerPacket.add(SorterList.placeTile.getInnerPacket(getting));
+
 				location.z++;
 			}
-			SorterList.waitUntill.send(sending, "got");
+
+			outerPacket.add(SorterList.waitUntill.getInnerPacket("got"));
+			sending.send(outerPacket);
+
 		}
 		catch (ClassCastException e) {
 			System.out.println("[Error] Malformed packet. Full packet text: \n" + packet.toString());
