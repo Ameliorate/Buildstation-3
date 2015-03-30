@@ -61,11 +61,15 @@ public class Connection implements Runnable {
 		System.out.println("[Info] Connection " + toString() + " closed.");
 		connection = null;	// I'm not sure if this is necessary, but it can't do any harm.
 		thread = null;
+
+		if (Variables.isServer == false) {
+			Utilities.popupMessage("Disconnected", "The connection to the server has been closed.");
+			System.exit(2);    // TODO: When the main menu is implemented, replace this with a kick back to the main menu.
+		}
 	}
 	
 	/**
 	 * Sends the packet to the connection. You should probably use a sorter's send method though.
-	 * @param packet
 	 */
 	public void send(JSONArray packet) {
 		DataOutputStream connectionOut = null;
