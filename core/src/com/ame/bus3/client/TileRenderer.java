@@ -25,7 +25,7 @@ public class TileRenderer implements Renderer {
 	@Override
 	public void render(SpriteBatch batch) {
 		Texture drawing;
-		Tile drawingTile = new Wall();	// I initialise this with wall so that the loop works correctly.
+		Tile drawingTile = new Wall(new Coordinate(0, 0, 0, "temp"));	// I initialise this with wall so that the loop works correctly.
 		SpriteState state = null;
 		int tileXPixel;
 		int tileYPixel;
@@ -48,7 +48,10 @@ public class TileRenderer implements Renderer {
 						catch (NullPointerException e) {
 							if (z == 0) {
 								SorterList.getTile.send(ConnectionHandler.server, new Coordinate(x, y, z, renderLayers[i].level));
-								SorterList.waitUntill.wait("got");
+								SorterList.waitUntill.wait("got");	// This can cause a bottleneck based on the speed of the network connection.
+
+								drawingTile = Variables.map.get(new Coordinate(x, y, z, renderLayers[i].level));	// Redoing what was done above since it wasn't done correctly the first time.
+								state = drawingTile.renderTick();
 							}
 							else
 								break;
