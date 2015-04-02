@@ -4,7 +4,6 @@ import com.ame.bus3.common.Connection;
 import com.ame.bus3.common.Coordinate;
 import com.ame.bus3.common.PacketSorterTracker;
 import com.ame.bus3.common.Tile;
-import com.ame.bus3.common.Tiles.Wall;
 import com.ame.bus3.common.Variables;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -31,7 +30,8 @@ public class GetTile implements PacketSorter {
 				if (getting == null && location.z != 0)
 					break;
 				else if (getting == null && location.z == 0) { // TODO: Replace placing a wall tile with a gamemodecontroler place tile call when that is added.
-					Variables.map.place(new Wall(), location);
+					Variables.map.spawn(location, "Wall");
+					getting = Variables.map.get(location);
 				}
 
 				outerPacket.add(SorterList.placeTile.getInnerPacket(getting));

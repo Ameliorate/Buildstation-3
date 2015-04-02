@@ -21,7 +21,7 @@ public class BuildstationServerMain {
 		TileRegisterer.load();		// Registerers tiles.
 		System.out.println("[Info] Loaded tiles.");
 
-		Variables.map.fill(new Coordinate(0, 0, 0, "default"), new Coordinate(15, 15, 0, "default"), new Wall());
+		Variables.map.fill(new Coordinate(0, 0, 0, "default"), new Coordinate(15, 15, 0, "default"), new Wall(new Coordinate(0, 0, 0, "temp")));
 		System.out.println("[Info] Populated map.");
 
 		SorterList.loadSorters();		// Begin networking

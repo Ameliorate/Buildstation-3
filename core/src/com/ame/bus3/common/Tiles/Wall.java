@@ -11,7 +11,8 @@ import com.badlogic.gdx.graphics.Texture;
  * @author Amelorate
  */
 public class Wall extends BaseTile {
-	public Wall() {
+	public Wall(Coordinate location) {
+		super(location);
 		if (Variables.isServer == false)
 			TileTextureControler.register("Wall", "Wall.jpg");
 		spriteState.texture = "Wall";
@@ -19,7 +20,7 @@ public class Wall extends BaseTile {
 
 	@Override
 	public void clone(Coordinate location) {
-		Variables.map.place(new Wall(), location);
+		Variables.map.place(new Wall(location), location);
 	}
 
 	@Override

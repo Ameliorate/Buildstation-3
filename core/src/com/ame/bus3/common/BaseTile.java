@@ -7,6 +7,11 @@ import org.json.simple.JSONObject;
  * @author Amelorate
  */
 public abstract class BaseTile implements Tile {
+	public BaseTile(Coordinate location) {
+		position = location;
+		Variables.map.place(this, position);
+	}
+
 	public SpriteState spriteState = new SpriteState();	// This is meant to be public to allow other classes to change it's sprite.
 	protected Coordinate position = new Coordinate();
 
@@ -38,5 +43,10 @@ public abstract class BaseTile implements Tile {
 	@Override
 	public void setData(JSONObject data) {
 		// Since there is no data it needs, just do nothing.
+	}
+
+	@Override
+	public String toString() {
+		return getType() + "@" + position.toString();
 	}
 }

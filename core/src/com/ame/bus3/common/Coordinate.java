@@ -38,8 +38,13 @@ public class Coordinate implements JSONAware {
 		Integer x = this.x;
 		Integer y = this.y;
 		Integer z = this.z;		// I do this because you can't call toString on a primitive like an int.
-		
+
 		return x.toString() + "," + y.toString() + "," + z.toString() + "," + level;
+	}
+
+	@Override
+	public int hashCode() {
+		return toString().hashCode();	// This probably does have it's flaws, but it's better than the alternatives.
 	}
 
 	@Override

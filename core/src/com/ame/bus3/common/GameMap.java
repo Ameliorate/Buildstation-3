@@ -53,7 +53,7 @@ public class GameMap {
 	 * Spawns a tile at the given location.
 	 */
 	public void spawn(Coordinate location, String tileName) {
-		Tile spawner = get(new Coordinate(0, 0, 0, tileName + "_Spawner"));
+		Tile spawner = TileRegisterer.getTileTemplate(tileName);
 		if (spawner == null)
 			throw new IllegalArgumentException("Nonexistent tile");
 		else
