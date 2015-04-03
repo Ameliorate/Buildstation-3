@@ -41,6 +41,8 @@ public class TileRenderer implements Renderer {
 			for (int x = renderLayers[i].x; x <= 15; x++)
 				for (int y = renderLayers[i].y; y <= 15; y++)
 					for (int z = 0; drawingTile != null; z++) {
+						System.out.println("Render try.");
+
 						drawingTile = Variables.map.get(new Coordinate(x, y, z, renderLayers[i].level));
 						try {
 							state = drawingTile.renderTick();
@@ -50,12 +52,15 @@ public class TileRenderer implements Renderer {
 								SorterList.getTile.send(ConnectionHandler.server, new Coordinate(x, y, z, renderLayers[i].level));
 								SorterList.waitUntill.wait("got");	// This can cause a bottleneck based on the speed of the network connection.
 
-								drawingTile = Variables.map.get(new Coordinate(x, y, z, renderLayers[i].level));	// Redoing what was done above since it wasn't done correctly the first time.
-								state = drawingTile.renderTick();
+								drawingTile = new Wall(new Coordinate(0, 0, 0, "temp"));
+								z--;
+								e.printStackTrace();
+								continue; // This and the above 2 statements makes the renderer retry rendering the tile.
 							}
 							else
 								break;
 						}
+
 						drawing = TileTextureControler.get(state.texture);
 						tileXPixel = x * 48;	// For various reasons, we assume sprites are 48 pixels in height/width.
 						tileYPixel = y * 48;
@@ -69,6 +74,8 @@ public class TileRenderer implements Renderer {
 						This will help:
 						https://stackoverflow.com/questions/24748350/libgdx-rotate-a-texture-when-drawing-it-with-spritebatch
 						 */
+
+						System.out.println("Render successful.");
 					}
 
 		batch.end();
