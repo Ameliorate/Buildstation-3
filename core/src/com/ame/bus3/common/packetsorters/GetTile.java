@@ -35,12 +35,10 @@ public class GetTile implements PacketSorter {
 				}
 
 				outerPacket.add(SorterList.placeTile.getInnerPacket(getting));
-
-				location.z++;
 			}
-
 			outerPacket.add(SorterList.waitUntill.getInnerPacket("got"));
 			sending.send(outerPacket);
+			location.z++;
 
 		}
 		catch (ClassCastException e) {
