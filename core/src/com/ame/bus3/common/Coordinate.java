@@ -33,6 +33,45 @@ public class Coordinate implements JSONAware {
 		}
 	}
 
+	public Coordinate(Coordinate coordinate) {
+		x = coordinate.x;
+		y = coordinate.y;
+		z = coordinate.z;
+		level = coordinate.level;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public int getZ() {
+		return z;
+	}
+
+	public String getLevel() {
+		return level;
+	}
+
+	public Coordinate setX(int newValue) {
+		return new Coordinate(newValue, y, z, level);
+	}
+
+	public Coordinate setY(int newValue) {
+		return new Coordinate(x, newValue, z, level);
+	}
+
+	public Coordinate setZ(int newValue) {
+		return new Coordinate(x, y, newValue, level);
+	}
+
+	public Coordinate setLevel(String newValue) {
+		return new Coordinate(x, y, z, newValue);
+	}
+
 	@Override
 	public String toString() {
 		Integer x = this.x;
@@ -59,10 +98,10 @@ public class Coordinate implements JSONAware {
 		return  json.toString();
 	}
 	
-	public int x;
-	public int y;
-	public int z;
-	public String level;
+	private int x;
+	private int y;
+	private int z;
+	private String level;
 
 
 }

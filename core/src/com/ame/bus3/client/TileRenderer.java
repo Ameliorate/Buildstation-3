@@ -38,18 +38,18 @@ public class TileRenderer implements Renderer {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		for(int i = 0; i <= renderLayers.length; i++)
-			for (int x = renderLayers[i].x; x <= 15; x++)
-				for (int y = renderLayers[i].y; y <= 15; y++)
+			for (int x = renderLayers[i].getX(); x <= 15; x++)
+				for (int y = renderLayers[i].getY(); y <= 15; y++)
 					for (int z = 0; drawingTile != null; z++) {
 						System.out.println("Render try.");
 
-						drawingTile = Variables.map.get(new Coordinate(x, y, z, renderLayers[i].level));
+						drawingTile = Variables.map.get(new Coordinate(x, y, z, renderLayers[i].getLevel()));
 						try {
 							state = drawingTile.renderTick();
 						}
 						catch (NullPointerException e) {
 							if (z == 0) {
-								SorterList.getTile.send(ConnectionHandler.server, new Coordinate(x, y, z, renderLayers[i].level));
+								SorterList.getTile.send(ConnectionHandler.server, new Coordinate(x, y, z, renderLayers[i].getLevel()));
 								SorterList.waitUntill.wait("got");	// This can cause a bottleneck based on the speed of the network connection.
 
 								drawingTile = new Wall(new Coordinate(0, 0, 0, "temp"));

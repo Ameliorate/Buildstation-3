@@ -27,19 +27,18 @@ public class GetTile implements PacketSorter {
 
 			while (true) {
 				getting = Variables.map.get(location);
-				if (getting == null && location.z != 0)
+				if (getting == null && location.getZ() != 0)
 					break;
-				else if (getting == null && location.z == 0) { // TODO: Replace placing a wall tile with a gamemodecontroler place tile call when that is added.
-					Variables.map.spawn(location, "Wall");
+				else if (getting == null && location.getZ() == 0) { // TODO: Replace placing a wall tile with a gamemodecontroler place tile call when that is added.
+					Variables.map.spawn(new Coordinate(location), "Wall");	// I create a new coordinate because the old one is mutated and it could mess things up.
 					getting = Variables.map.get(location);
+					location = location.setZ(location.getZ() + 1);
 				}
 
 				outerPacket.add(SorterList.placeTile.getInnerPacket(getting));
 			}
 			outerPacket.add(SorterList.waitUntill.getInnerPacket("got"));
 			sending.send(outerPacket);
-			location.z++;
-
 		}
 		catch (ClassCastException e) {
 			System.out.println("[Error] Malformed packet. Full packet text: \n" + packet.toString());

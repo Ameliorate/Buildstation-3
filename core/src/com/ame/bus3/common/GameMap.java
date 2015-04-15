@@ -74,10 +74,10 @@ public class GameMap {
 	 * @param fillingTile The tile you are filling the area with.
 	 */
 	public void fill(Coordinate start, Coordinate finish, Tile fillingTile) {
-		for (int x = start.x; x <= finish.x; x++)
-			for (int y = start.y; y <= finish.y; y++)
-				for (int z = start.z; z <= finish.z; z++) {
-					fillingTile.clone(new Coordinate(x, y, z, start.level));
+		for (int x = start.getX(); x <= finish.getX(); x++)
+			for (int y = start.getY(); y <= finish.getX(); y++)
+				for (int z = start.getZ(); z <= finish.getZ(); z++) {
+					fillingTile.clone(new Coordinate(x, y, z, start.getLevel()));
 				}
 	}
 }
