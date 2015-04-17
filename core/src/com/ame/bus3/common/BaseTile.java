@@ -7,6 +7,8 @@ import org.json.simple.JSONObject;
  * @author Amelorate
  */
 public abstract class BaseTile implements Tile {
+	public BaseTile() {}
+
 	public BaseTile(Coordinate location) {
 		position = location;
 		Variables.map.place(this, position);
