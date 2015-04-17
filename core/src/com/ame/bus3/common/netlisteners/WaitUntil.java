@@ -3,19 +3,19 @@ package com.ame.bus3.common.netlisteners;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Allows waiting until a connection says it has finished a task.
  * @author Amelorate
  */
 public class WaitUntil extends Listener {
-	private static ArrayList<String> finished = new ArrayList<String>();
+	private static HashMap<String, Boolean> finished = new HashMap<String, Boolean>();	// Find a better way to do this.
 
 	@Override
 	public void received(Connection connection, Object object) {
 		if (object instanceof WaitUntilPacket)
-			finished.add(((WaitUntilPacket) object).condition);
+			finished.put(((WaitUntilPacket) object).condition, true);
 	}
 
 	/**
@@ -27,14 +27,15 @@ public class WaitUntil extends Listener {
 	}
 
 	/**
-	 * Waits for a certain task to complete.
+	 * Waits for a certain task to complete. Not thread safe with the same keys.
 	 */
 	public static void wait(String waitingCondition) {
 		int oldPriority = Thread.currentThread().getPriority();
 		Thread.currentThread().setPriority(Thread.MIN_PRIORITY);	// We don't want to be clogging up the cpu with an empty loop.
+		finished.put(waitingCondition, false);
 
 		//noinspection StatementWithEmptyBody
-		while (!finished.contains(waitingCondition)) {}
+		while (!finished.get(waitingCondition)) {}
 
 		Thread.currentThread().setPriority(oldPriority);
 	}

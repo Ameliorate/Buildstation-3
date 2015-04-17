@@ -6,6 +6,8 @@ import com.ame.bus3.common.Variables;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
+import java.util.Random;
+
 /**
  * Gets a tile from the server.
  * @author Amelorate
@@ -24,16 +26,29 @@ public class GetTile extends Listener {
 	 * Gets a tile from the server.
 	 */
 	public static void send(Coordinate location, Connection connection) {
-		connection.sendTCP(new GetTilePacket(location));
+		connection.sendTCP(new GetTilePacket(location, "got"));	// This isn't thread safe, but it is backwards compatible and doesn't need an extra argument.
+	}
+
+	/**
+	 * A thread safe way of getting a tile from the server and waiting until it has been received.
+	 */
+	public static void sendWait(Coordinate location, Connection connection) {
+		Random random = new Random();
+		int randInt = random.nextInt();
+
+		connection.sendTCP(new GetTilePacket(location, "got" + randInt));
+		WaitUntil.wait("got" + randInt);
 	}
 
 	private static class GetTilePacket {
 		public GetTilePacket() {}
 
-		public GetTilePacket(Coordinate location) {
+		public GetTilePacket(Coordinate location, String waitingString) {
 			this.location = location;
+			this.waitingString = waitingString;
 		}
 
 		public Coordinate location;
+		public String waitingString;
 	}
 }
