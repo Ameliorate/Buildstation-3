@@ -3,7 +3,9 @@ package com.ame.bus3.common.netlisteners;
 import com.ame.bus3.common.Coordinate;
 import com.ame.bus3.common.Tile;
 import com.ame.bus3.common.Variables;
+import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Connection;
+import com.esotericsoftware.kryonet.KryoSerialization;
 import com.esotericsoftware.kryonet.Listener;
 
 import java.util.Random;
@@ -38,6 +40,14 @@ public class GetTile extends Listener {
 
 		connection.sendTCP(new GetTilePacket(location, "got" + randInt));
 		WaitUntil.wait("got" + randInt);
+	}
+
+	/**
+	 * Call this before using the listener. Make sure to do these in the same order.
+	 * @param kryo The kryo instance used by the client/server.
+	 */
+	public void register(Kryo kryo) {
+		kryo.register(GetTilePacket.class);
 	}
 
 	private static class GetTilePacket {
