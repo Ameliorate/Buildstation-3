@@ -2,7 +2,6 @@ package com.ame.bus3.client;
 
 import com.ame.bus3.common.TileRegisterer;
 import com.ame.bus3.common.Variables;
-import com.ame.bus3.common.packetsorters.SorterList;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -16,11 +15,11 @@ public class BuildstationClientMain extends ApplicationAdapter {
 	
 	@Override
 	public void create() {
-		SorterList.loadSorters();
 		Variables.isServer = false;
 
 		TileRegisterer.load();
-		ConnectionHandler.connect();
+
+		// TODO: Networking. It goes here.
 		
 		batch = new SpriteBatch();
 		RendererControler.load();
