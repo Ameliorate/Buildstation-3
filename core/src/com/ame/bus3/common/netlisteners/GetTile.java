@@ -15,7 +15,7 @@ public class GetTile extends Listener {
 	@Override
 	public void received(Connection connection, Object object) {
 		if (object instanceof GetTilePacket) {
-			Tile tile = Variables.map.get((Coordinate) object);
+			Tile tile = Variables.map.get(((GetTilePacket) object).location);
 			PlaceTile.send(tile, connection);
 		}
 	}
