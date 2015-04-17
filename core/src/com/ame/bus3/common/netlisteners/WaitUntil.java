@@ -14,6 +14,8 @@ public class WaitUntil extends Listener {
 
 	@Override
 	public void received(Connection connection, Object object) {
+		if (object instanceof WaitUntilPacket)
+			finished.add(((WaitUntilPacket) object).condition);
 	}
 
 	/**
