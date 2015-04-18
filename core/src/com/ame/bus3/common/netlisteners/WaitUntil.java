@@ -20,14 +20,6 @@ public class WaitUntil extends Listener {
 	}
 
 	/**
-	 * Call this before using the listener. Make sure to do these in the same order.
-	 * @param kryo The kryo instance used by the client/server.
-	 */
-	public void register(Kryo kryo) {
-		kryo.register(WaitUntilPacket.class);
-	}
-
-	/**
 	 * Sends the specified packet.
 	 * @param finished What you have finished doing.
 	 */

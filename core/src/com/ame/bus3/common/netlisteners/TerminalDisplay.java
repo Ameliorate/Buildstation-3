@@ -16,14 +16,6 @@ public class TerminalDisplay extends Listener {
 			System.out.println(((TerminalDisplayPacket) object).message);
 	}
 
-	/**
-	 * Call this before using the listener. Make sure to do these in the same order.
-	 * @param kryo The kryo instance used by the client/server.
-	 */
-	public void register(Kryo kryo) {
-		kryo.register(TerminalDisplayPacket.class);
-	}
-
 	public static void send(String message, Connection connection) {
 		connection.sendTCP(new TerminalDisplayPacket(message));
 	}

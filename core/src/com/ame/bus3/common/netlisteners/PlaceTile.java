@@ -17,14 +17,6 @@ public class PlaceTile extends Listener {
 			Variables.map.place(((PlaceTilePacket) object).placing, ((PlaceTilePacket) object).placing.getPosition());
 	}
 
-	/**
-	 * Call this before using the listener. Make sure to do these in the same order.
-	 * @param kryo The kryo instance used by the client/server.
-	 */
-	public void register(Kryo kryo) {
-		kryo.register(PlaceTilePacket.class);
-	}
-
 	public static void send(Tile tile, Connection connection) {
 		connection.sendTCP(tile);
 	}

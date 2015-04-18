@@ -52,14 +52,6 @@ public class GetTile extends Listener {
 		WaitUntil.wait("got" + randInt);
 	}
 
-	/**
-	 * Call this before using the listener. Make sure to do these in the same order.
-	 * @param kryo The kryo instance used by the client/server.
-	 */
-	public void register(Kryo kryo) {
-		kryo.register(GetTilePacket.class);
-	}
-
 	private static class GetTilePacket {
 		public GetTilePacket() {}
 
