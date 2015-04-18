@@ -5,7 +5,6 @@ import com.ame.bus3.common.Tile;
 import com.ame.bus3.common.Variables;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Connection;
-import com.esotericsoftware.kryonet.KryoSerialization;
 import com.esotericsoftware.kryonet.Listener;
 
 import java.util.Random;
@@ -19,8 +18,18 @@ public class GetTile extends Listener {
 	@Override
 	public void received(Connection connection, Object object) {
 		if (object instanceof GetTilePacket) {
-			Tile tile = Variables.map.get(((GetTilePacket) object).location);
-			PlaceTile.send(tile, connection);
+			while (true) {
+				Tile tile = Variables.map.get(((GetTilePacket) object).location);
+				if (tile == null && ((GetTilePacket) object).location.getZ() != 0)
+					break;
+				else if (tile == null && ((GetTilePacket) object).location.getZ() == 0) {
+					Variables.map.spawn(((GetTilePacket) object).location, "Wall");		// TODO: Replace this with a gamemode controller place call when it is implemented.
+					tile = Variables.map.get(((GetTilePacket) object).location);
+				}
+				PlaceTile.send(tile, connection);
+
+				((GetTilePacket) object).location = ((GetTilePacket) object).location.setZ(((GetTilePacket) object).location.getZ() + 1);
+			}
 		}
 	}
 
