@@ -27,6 +27,7 @@ public class GetTile extends Listener {
 					tile = Variables.map.get(((GetTilePacket) object).location);
 				}
 				PlaceTile.send(tile, connection);
+				WaitUntil.send(connection, ((GetTilePacket) object).waitingString);
 
 				((GetTilePacket) object).location = ((GetTilePacket) object).location.setZ(((GetTilePacket) object).location.getZ() + 1);
 			}
