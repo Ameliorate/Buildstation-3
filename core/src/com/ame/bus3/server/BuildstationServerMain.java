@@ -23,7 +23,8 @@ public class BuildstationServerMain {
 		Variables.map.fill(new Coordinate(0, 0, 0, "default"), new Coordinate(15, 15, 0, "default"), new Wall(new Coordinate(0, 0, 0, "temp")));
 		System.out.println("[Info] Populated map.");
 
-		Variables.port = 25566;
+		Variables.tcpPort = 25566;
+		Variables.udpPort = 25567;
 		// TODO: Networking. It goes here.
 		System.out.println("[Info] Loaded networking.");
 		

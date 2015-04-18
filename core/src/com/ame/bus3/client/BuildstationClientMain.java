@@ -11,7 +11,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  *
  */
 public class BuildstationClientMain extends ApplicationAdapter {
-	SpriteBatch batch;
+	public static ClientNetworkController clientNetworkController;
+
+	private SpriteBatch batch;
 	
 	@Override
 	public void create() {
@@ -19,7 +21,7 @@ public class BuildstationClientMain extends ApplicationAdapter {
 
 		TileRegisterer.load();
 
-		// TODO: Networking. It goes here.
+		clientNetworkController = new ClientNetworkController();
 		
 		batch = new SpriteBatch();
 		RendererControler.load();
