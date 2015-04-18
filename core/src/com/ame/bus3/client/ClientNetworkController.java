@@ -2,6 +2,7 @@ package com.ame.bus3.client;
 
 import com.ame.bus3.common.Utilities;
 import com.ame.bus3.common.Variables;
+import com.ame.bus3.common.netlisteners.ListenerList;
 import com.esotericsoftware.kryonet.Client;
 
 import java.io.IOException;
@@ -25,6 +26,7 @@ public class ClientNetworkController {
 				promptIPPort();
 				continue;
 			}
+			ListenerList.addListeners(client);
 			break;
 		}
 	}
