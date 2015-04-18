@@ -3,7 +3,6 @@ package com.ame.bus3.common.netlisteners;
 import com.ame.bus3.common.Coordinate;
 import com.ame.bus3.common.Tile;
 import com.ame.bus3.common.Variables;
-import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 

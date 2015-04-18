@@ -1,9 +1,7 @@
 package com.ame.bus3.common;
 
-import java.awt.Canvas;
-
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Common utilities for various different uses.

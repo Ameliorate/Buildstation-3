@@ -1,6 +1,5 @@
 package com.ame.bus3.common.netlisteners;
 
-import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
