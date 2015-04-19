@@ -5,6 +5,7 @@ import com.ame.bus3.common.SpriteState;
 import com.ame.bus3.common.Tile;
 import com.ame.bus3.common.Tiles.Wall;
 import com.ame.bus3.common.Variables;
+import com.ame.bus3.common.netlisteners.GetTile;
 import com.ame.bus3.common.netlisteners.WaitUntil;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -49,8 +50,7 @@ public class TileRenderer implements Renderer {
 						}
 						catch (NullPointerException e) {
 							if (z == 0) {
-								//GetTile.send(ConnectionHandler.server, new Coordinate(x, y, z, renderLayers[i].getLevel()));
-								// TODO: Create logic for connections, then uncomment above ^
+								GetTile.send(new Coordinate(x, y, z, renderLayers[i].getLevel()), BuildstationClientMain.clientNetworkController.client);
 								WaitUntil.wait("got");	// This can cause a bottleneck based on the speed of the network connection.
 
 								drawingTile = new Wall(new Coordinate(0, 0, 0, "temp"));
