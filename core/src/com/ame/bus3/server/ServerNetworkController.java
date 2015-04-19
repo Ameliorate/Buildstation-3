@@ -21,6 +21,7 @@ public class ServerNetworkController {
 			System.out.println("[Error] Could not bind server. Another server is probably open on the same port. Exiting.");
 			System.exit(1);
 		}
+		server.getKryo().setRegistrationRequired(false);
 		ListenerList.addListeners(server);
 	}
 

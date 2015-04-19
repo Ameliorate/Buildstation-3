@@ -26,6 +26,7 @@ public class ClientNetworkController {
 				promptIPPort();
 				continue;
 			}
+			client.getKryo().setRegistrationRequired(false);
 			ListenerList.addListeners(client);
 			break;
 		}
