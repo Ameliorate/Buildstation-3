@@ -11,6 +11,8 @@ import com.ame.bus3.common.Variables;
  *
  */
 public class BuildstationServerMain {
+	public static ServerNetworkController serverNetworkController;
+
 	/**
 	 * Starts the server.
 	 */
@@ -25,7 +27,7 @@ public class BuildstationServerMain {
 
 		Variables.tcpPort = 25566;
 		Variables.udpPort = 25567;
-		// TODO: Networking. It goes here.
+		serverNetworkController = new ServerNetworkController();
 		System.out.println("[Info] Loaded networking.");
 		
 		System.out.println("[Info] Finished initialising.");
