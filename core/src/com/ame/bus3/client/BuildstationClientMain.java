@@ -17,6 +17,9 @@ public class BuildstationClientMain extends ApplicationAdapter {
 	
 	@Override
 	public void create() {
+		//noinspection deprecation
+		Runtime.runFinalizersOnExit(true);	// Yes, I know this is unsafe, but there isn't really any other way to run code on jvm exit and then remove the code at runtime.
+
 		Variables.isServer = false;
 
 		TileRegisterer.load();

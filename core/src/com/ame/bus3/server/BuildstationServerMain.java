@@ -17,6 +17,9 @@ public class BuildstationServerMain {
 	 * Starts the server.
 	 */
 	public void create() {
+		//noinspection deprecation
+		Runtime.runFinalizersOnExit(true);	// Yes, I know this is unsafe, but there isn't really any other way to run code on jvm exit and then remove the code at runtime.
+
 		Variables.isServer = true;	// Make sure this is done first.
 
 		TileRegisterer.load();		// Registerers tiles.
