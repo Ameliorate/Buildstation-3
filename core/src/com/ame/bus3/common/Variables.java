@@ -18,12 +18,7 @@ public class Variables {
 	/**
 	 * Which port to use when connecting to a client/server via TCP.
 	 */
-	public static int tcpPort = 25566;
-
-	/**
-	 * Which port to use when connecting to a client/server via UDP
-	 */
-	public static int udpPort = 25567;
+	public static int port = 25566;
 
 	/**
 	 * The main map of the game.

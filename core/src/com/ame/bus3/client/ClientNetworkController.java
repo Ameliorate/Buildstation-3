@@ -18,7 +18,7 @@ public class ClientNetworkController {
 			client = new Client();
 			client.start();
 			try {
-				client.connect(5000, Variables.serverIP, Variables.tcpPort, Variables.udpPort);
+				client.connect(5000, Variables.serverIP, Variables.port);
 			}
 			catch (IOException e) {
 				Utilities.popupMessage("BuildStation", "Invalid Input\nThe server refused the connection or an unknown error occurred.");
@@ -59,8 +59,7 @@ public class ClientNetworkController {
 				}
 
 				try {
-					Variables.tcpPort = Integer.parseInt(serverPortIPSplit[1]);	// Then the port.
-					Variables.udpPort = Variables.tcpPort + 1;
+					Variables.port = Integer.parseInt(serverPortIPSplit[1]);	// Then the port.
 				}
 				catch (NumberFormatException e) {
 					Utilities.popupMessage("Invalid Input", serverPortIPSplit[1] + " Is not a valid port.");

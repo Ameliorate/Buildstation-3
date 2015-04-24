@@ -15,7 +15,7 @@ public class ServerNetworkController {
 		server = new Server();
 		server.start();
 		try {
-			server.bind(Variables.tcpPort, Variables.udpPort);
+			server.bind(Variables.port);
 		}
 		catch (IOException e) {
 			System.out.println("[Error] Could not bind server. Another server is probably open on the same port. Exiting.");
