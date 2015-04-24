@@ -8,8 +8,8 @@ import com.esotericsoftware.kryonet.EndPoint;
  */
 public class ListenerList {
 	public static void addListeners(EndPoint addingClientOrServer) {	// Listeners are added here.
-		addingClientOrServer.addListener(new GetTile());
-		addingClientOrServer.addListener(new PlaceTile());
+		addingClientOrServer.addListener(new GetChunk());
+		addingClientOrServer.addListener(new PlaceChunk());
 		addingClientOrServer.addListener(new TerminalDisplay());
 		addingClientOrServer.addListener(new WaitUntil());
 	}

@@ -47,7 +47,7 @@ public class ClientNetworkController {
 				serverPortIPSplit = serverPortIP.split("/");
 			}
 			catch (NullPointerException e) {
-				System.exit(0);
+				System.exit(0);	// TODO: Kick back to main menu when that is added.
 			}
 
 			if (serverPortIPSplit.length == 2) {

@@ -23,11 +23,14 @@ public class BuildstationClientMain extends ApplicationAdapter {
 		Variables.isServer = false;
 
 		TileRegisterer.load();
+		System.out.println("[Info] Loaded tiles.");
 
 		clientNetworkController = new ClientNetworkController();
+		System.out.println("[Info] Connected to server.");
 		
 		batch = new SpriteBatch();
 		RendererControler.load();
+		System.out.println("[Info] Loaded rendering.");
 
 		System.out.println("[Info] Finished starting up.");
 	}

@@ -5,8 +5,6 @@ import com.ame.bus3.common.SpriteState;
 import com.ame.bus3.common.Tile;
 import com.ame.bus3.common.Tiles.Wall;
 import com.ame.bus3.common.Variables;
-import com.ame.bus3.common.netlisteners.GetTile;
-import com.ame.bus3.common.netlisteners.WaitUntil;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -45,22 +43,7 @@ public class TileRenderer implements Renderer {
 						System.out.println("Render try.");
 
 						drawingTile = Variables.map.get(new Coordinate(x, y, z, renderLayers[i].getLevel()));
-						try {
-							state = drawingTile.renderTick();
-						}
-						catch (NullPointerException e) {
-							if (z == 0) {
-								GetTile.send(new Coordinate(x, y, z, renderLayers[i].getLevel()), BuildstationClientMain.clientNetworkController.client);
-								WaitUntil.wait("got");	// This can cause a bottleneck based on the speed of the network connection.
-
-								drawingTile = new Wall(new Coordinate(0, 0, 0, "temp"));
-								z--;
-								e.printStackTrace();
-								continue; // This and the above 2 statements makes the renderer retry rendering the tile.
-							}
-							else
-								break;
-						}
+						state = drawingTile.renderTick();
 
 						drawing = TileTextureControler.get(state.texture);
 						tileXPixel = x * 48;	// For various reasons, we assume sprites are 48 pixels in height/width.

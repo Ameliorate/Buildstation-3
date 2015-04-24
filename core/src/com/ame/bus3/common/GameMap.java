@@ -1,35 +1,82 @@
 package com.ame.bus3.common;
 
+import com.ame.bus3.client.BuildstationClientMain;
+import com.ame.bus3.common.netlisteners.GetChunk;
 import org.json.simple.JSONObject;
 
-import java.util.HashMap;
+import java.util.WeakHashMap;
 
 /**
  * The map of the game. Also will have a few useful methods for map manipulation.
  * @author Amelorate
  */
 public class GameMap {
-	private HashMap<Coordinate, Tile> map = new HashMap<Coordinate, Tile>();
+	private WeakHashMap<Coordinate, Chunk> mapChunkView = new WeakHashMap<Coordinate, Chunk>();
+
+	/**
+	 * Gets a chunk over the network if it isn't locally stored.
+	 * @param chunkLocation The location of the chunk. Make sure to divide x and y by 16, and z is ignored.
+	 */
+	public Chunk getChunk(Coordinate chunkLocation) {
+		chunkLocation = chunkLocation.setZ(0);
+		Chunk gettingChunk = mapChunkView.get(chunkLocation);
+
+		if (gettingChunk == null && !Variables.isServer) {
+			GetChunk.sendWait(chunkLocation, BuildstationClientMain.clientNetworkController.client);
+		}
+		else if (gettingChunk == null && Variables.isServer) {
+			gettingChunk = Chunk.loadChunkFromDisc(chunkLocation);
+			mapChunkView.put(chunkLocation, gettingChunk);
+			return gettingChunk;
+		}
+
+		return gettingChunk;
+	}
 
 	/**
 	 * Gets the tile at the given location.
 	 */
 	public Tile get(Coordinate location) {
-		return map.get(location);
+		Coordinate chunkLocation = new Coordinate(location.getX() / 16, location.getY() / 16, 0, location.getLevel());
+		Coordinate relativeTilePosition = new Coordinate(location.getX() % 16, location.getY() % 16, location.getZ(), location.getLevel());		// Since the location of the tiles in a chunk are relative, I need to use the % operator to find which tile it is at.
+		Chunk gettingChunk = getChunk(chunkLocation);
+		Tile gettingTile = gettingChunk.tiles.get(relativeTilePosition);
+
+		if (gettingTile == null && location.getZ() == 0 && Variables.isServer) {
+			spawn(location, "Wall");
+			gettingTile = get(location);	// Hopefully this won't break anything or cause infinite loops.
+		}
+
+		return gettingTile;
 	}
 
 	/**
 	 * Puts the given tile in the given location.
 	 */
 	public void place(Tile placing, Coordinate location) {
-		map.put(location, placing);
+		Coordinate chunkLocation = new Coordinate(location.getX() / 16, location.getY() / 16, 0, location.getLevel());
+		Coordinate relativeTilePosition = new Coordinate(location.getX() % 16, location.getY() % 16, location.getZ(), location.getLevel());		// Since the location of the tiles in a chunk are relative, I need to use the % operator to find which tile it is at.
+		Chunk gettingChunk = getChunk(chunkLocation);
+
+		gettingChunk.tiles.put(relativeTilePosition, placing);
+	}
+
+	/**
+	 * Place the given chunk in the given location.
+	 */
+	public void placeChunk(Chunk placing, Coordinate location) {
+		mapChunkView.put(location, placing);
 	}
 
 	/**
 	 * Removes the tile at the given location.
 	 */
 	public void remove(Coordinate location) {
-		map.remove(location);
+		Coordinate chunkLocation = new Coordinate(location.getX() / 16, location.getY() / 16, 0, location.getLevel());
+		Coordinate relativeTilePosition = new Coordinate(location.getX() % 16, location.getY() % 16, location.getZ(), location.getLevel());		// Since the location of the tiles in a chunk are relative, I need to use the % operator to find which tile it is at.
+		Chunk gettingChunk = getChunk(chunkLocation);
+
+		gettingChunk.tiles.remove(relativeTilePosition);
 	}
 
 	/**

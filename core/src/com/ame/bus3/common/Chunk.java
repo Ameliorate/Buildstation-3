@@ -7,7 +7,6 @@ import com.esotericsoftware.kryo.io.Output;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -33,15 +32,14 @@ public class Chunk {
 
 	/**
 	 * Load a chunk from the disc at a specific point.
-	 * @throws IOException If the chunk couldn't be found.
 	 */
-	public static Chunk loadChunkFromDisc(Coordinate location) throws IOException {
+	public static Chunk loadChunkFromDisc(Coordinate location) {
 		Input input;
 		try {
 			input = new Input(new FileInputStream("map/" + location.getLevel() + "/" + location.getX() + "/" + location.getY() + "chunk.busmap"));
 		}
 		catch (FileNotFoundException e) {
-			throw new IOException("Couldn't find chunk at location `" + location + "`", e);
+			return new Chunk();
 		}
 		Kryo kryo = new Kryo();
 		Chunk chunk = (Chunk) kryo.readClassAndObject(input);

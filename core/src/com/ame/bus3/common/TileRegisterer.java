@@ -13,7 +13,7 @@ public class TileRegisterer {
 	 * Used for creating and loading new tiles.
 	 */
 	public static void load() {
-		tiles.put("Wall", new Wall(new Coordinate(0, 0, 0, "temp")));	// New tiles go here.
+		tiles.put("Wall", new Wall());	// New tiles go here.
 	}
 
 	/**
