@@ -1,7 +1,5 @@
 package com.ame.bus3.common;
 
-import org.json.simple.JSONObject;
-
 /**
  * The abstract class for basic tiles.
  * @author Amelorate
@@ -31,20 +29,6 @@ public abstract class BaseTile implements Tile {
 	@Override
 	public Coordinate getPosition() {
 		return position;
-	}
-
-	@Override
-	public JSONObject getData() {
-		return new JSONObject();
-		/*
-		Since this has no data to send, it just needs to send a new json object.
-		Note that null is not a reasonable return value.
-		*/
-	}
-
-	@Override
-	public void setData(JSONObject data) {
-		// Since there is no data it needs, just do nothing.
 	}
 
 	@Override

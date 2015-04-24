@@ -2,7 +2,6 @@ package com.ame.bus3.common;
 
 import com.ame.bus3.client.BuildstationClientMain;
 import com.ame.bus3.common.netlisteners.GetChunk;
-import org.json.simple.JSONObject;
 
 import java.util.WeakHashMap;
 
@@ -105,14 +104,6 @@ public class GameMap {
 			throw new IllegalArgumentException("Nonexistent tile");
 		else
 			spawner.clone(location);
-	}
-
-	/**
-	 * Spawns a new tile at the given location. Also gives the data to said object.
-	 */
-	public void spawn(Coordinate location, String tileName, JSONObject data) {
-		spawn(location, tileName);
-		get(location).setData(data);
 	}
 
 	/**

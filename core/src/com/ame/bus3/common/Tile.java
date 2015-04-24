@@ -1,7 +1,5 @@
 package com.ame.bus3.common;
 
-import org.json.simple.JSONObject;
-
 /**
  * A basic tile. You probably don't want to implement this directly unless you want to do something weird. Use an abstract class instead.
  * @author Amelorate
@@ -28,16 +26,6 @@ public interface Tile {
 	 * Gets the position of the tile.
 	 */
 	public Coordinate getPosition();
-
-	/**
-	 * Gets data necessary to sync the client and server's instances of the tile.
-	 */
-	public  JSONObject getData();
-
-	/**
-	 * Sets the internal data of the class to what is specified inside the json object.
-	 */
-	public void setData(JSONObject data);
 
 	/**
 	 * Gets the type of the tile.
