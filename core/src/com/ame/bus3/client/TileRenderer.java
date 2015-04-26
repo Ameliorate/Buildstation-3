@@ -1,14 +1,13 @@
 package com.ame.bus3.client;
 
-import com.ame.bus3.common.Coordinate;
-import com.ame.bus3.common.SpriteState;
-import com.ame.bus3.common.Tile;
+import com.ame.bus3.common.*;
 import com.ame.bus3.common.Tiles.Wall;
-import com.ame.bus3.common.Variables;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+import java.util.HashMap;
 
 /**
  * Renders the tiles on the screen.
@@ -16,6 +15,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 public class TileRenderer implements Renderer {
 	public Coordinate[] renderLayers = {new Coordinate(0, 0, 0, "default")};
+	private HashMap<ChunkCacheKey, Chunk> chunkCache = new HashMap<ChunkCacheKey, Chunk>();
+	private static final int PIXELS_PER_TILE = 48;
 
 	public TileRenderer() {
 		RendererControler.register("TileRender", this);
@@ -24,44 +25,63 @@ public class TileRenderer implements Renderer {
 	@Override
 	public void render(SpriteBatch batch) {
 		Texture drawing;
-		Tile drawingTile = new Wall(new Coordinate(0, 0, 0, "temp"));	// I initialise this with wall so that the loop works correctly.
-		SpriteState state = null;
+		Tile drawingTile = new Wall();	// I initialise this with wall so that the loop works correctly.
+		SpriteState state;
 		int tileXPixel;
 		int tileYPixel;
-		float rotation;
-		boolean flipX;
-		boolean flipY;
 
-		batch.begin();
-		Gdx.gl.glClearColor(0.5f, 0, 1, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		for(Coordinate cererntLayer : renderLayers) {
+			for (int x = -1; x <= 1; x++)
+				for (int y = -1; y <= 1; y++) {
+					int xChunkPos = (cererntLayer.getX() / 16) + x;
+					int yChunkPos = (cererntLayer.getY() / 16) + y;
 
-		for(int i = 0; i <= renderLayers.length; i++)
-			for (int x = renderLayers[i].getX(); x <= 15; x++)
-				for (int y = renderLayers[i].getY(); y <= 15; y++)
+					Chunk cacheingChunk = Variables.map.getChunk(new Coordinate(xChunkPos, yChunkPos, 0, cererntLayer.getLevel()));
+					ChunkCacheKey key = new ChunkCacheKey(x, y, cererntLayer.getLevel());
+					chunkCache.put(key, cacheingChunk);
+				}
+
+			for (int x = cererntLayer.getX(); x <= 15; x++)
+				for (int y = cererntLayer.getY(); y <= 15; y++)
 					for (int z = 0; drawingTile != null; z++) {
-						System.out.println("Render try.");
+						System.out.println("Render try");
+						drawingTile = Variables.map.get(new Coordinate(x, y, z, cererntLayer.getLevel()));
+						System.out.println("boo");
+						if (drawingTile == null) {
+							System.out.println("null thingy");
+							break;
+						} else {
+							state = drawingTile.renderTick();
+							tileXPixel = drawingTile.getPosition().getX() * PIXELS_PER_TILE;
+							tileYPixel = drawingTile.getPosition().getY() * PIXELS_PER_TILE;
+							drawing = TileTextureControler.get(state.texture);
 
-						drawingTile = Variables.map.get(new Coordinate(x, y, z, renderLayers[i].getLevel()));
-						state = drawingTile.renderTick();
-
-						drawing = TileTextureControler.get(state.texture);
-						tileXPixel = x * 48;	// For various reasons, we assume sprites are 48 pixels in height/width.
-						tileYPixel = y * 48;
-						rotation = state.rotation;
-						flipX = state.flipX;
-						flipY = state.flipY;
-
-						batch.draw(drawing, tileXPixel, tileYPixel, 24, 24, 48, 48, 1, 1, rotation, 0, 0, 48, 48, flipX, flipY);
-						/*
-						It's probably better to rewrite the above statement if you want to maintain this.
-						This will help:
-						https://stackoverflow.com/questions/24748350/libgdx-rotate-a-texture-when-drawing-it-with-spritebatch
-						 */
-
-						System.out.println("Render successful.");
+							batch.draw(drawing, tileXPixel, tileYPixel, 24, 24, 48, 48, 1, 1, state.rotation, 0, 0, 48, 48, state.flipX, state.flipY);
+							/*
+							It's probably better to rewrite the above statement if you want to maintain this.
+							This will help:
+							https://stackoverflow.com/questions/24748350/libgdx-rotate-a-texture-when-drawing-it-with-spritebatch
+							 */
+							System.out.println("Render!");
+						}
 					}
+		}
+	}
 
-		batch.end();
+	private class ChunkCacheKey {
+		public ChunkCacheKey(int x, int y, String level) {
+			this.x = x;
+			this.y = y;
+			this.level = level;
+		}
+
+		public int x;
+		public int y;
+		public String level;
+
+		@Override
+		public int hashCode() {
+			return x + y + level.hashCode();
+		}
 	}
 }

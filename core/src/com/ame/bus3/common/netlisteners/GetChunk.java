@@ -18,6 +18,7 @@ public class GetChunk extends Listener {
 	public void received(Connection connection, Object object) {
 		if (object instanceof GetChunkPacket) {
 			connection.sendTCP(Variables.map.getChunk(((GetChunkPacket) object).location));
+			WaitUntil.send(connection, ((GetChunkPacket) object).waitingString);
 		}
 	}
 

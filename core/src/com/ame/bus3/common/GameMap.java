@@ -22,6 +22,8 @@ public class GameMap {
 
 		if (gettingChunk == null && !Variables.isServer) {
 			GetChunk.sendWait(chunkLocation, BuildstationClientMain.clientNetworkController.client);
+			gettingChunk = mapChunkView.get(chunkLocation);
+			return gettingChunk;
 		}
 		else if (gettingChunk == null && Variables.isServer) {
 			gettingChunk = Chunk.loadChunkFromDisc(chunkLocation);
