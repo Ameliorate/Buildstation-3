@@ -25,7 +25,7 @@ public class TileRenderer implements Renderer {
 	@Override
 	public void render(SpriteBatch batch) {
 		Texture drawing;
-		Tile drawingTile = new Wall();	// I initialise this with wall so that the loop works correctly.
+		Tile drawingTile = new Wall(false);	// I initialise this with wall so that the loop works correctly.
 		SpriteState state;
 		int tileXPixel;
 		int tileYPixel;
@@ -36,7 +36,7 @@ public class TileRenderer implements Renderer {
 					int xChunkPos = (cererntLayer.getX() / 16) + x;
 					int yChunkPos = (cererntLayer.getY() / 16) + y;
 
-					Chunk cacheingChunk = Variables.map.getChunk(new Coordinate(xChunkPos, yChunkPos, 0, cererntLayer.getLevel()));
+					Chunk cacheingChunk = BuildstationClientMain.getInstance().map.getChunk(new Coordinate(xChunkPos, yChunkPos, 0, cererntLayer.getLevel()));
 					ChunkCacheKey key = new ChunkCacheKey(x, y, cererntLayer.getLevel());
 					chunkCache.put(key, cacheingChunk);
 				}
@@ -45,7 +45,7 @@ public class TileRenderer implements Renderer {
 				for (int y = cererntLayer.getY(); y <= 15; y++)
 					for (int z = 0; drawingTile != null; z++) {
 						System.out.println("Render try");
-						drawingTile = Variables.map.get(new Coordinate(x, y, z, cererntLayer.getLevel()));
+						drawingTile = BuildstationClientMain.getInstance().map.get(new Coordinate(x, y, z, cererntLayer.getLevel()));
 						System.out.println("boo");
 						if (drawingTile == null) {
 							System.out.println("null thingy");

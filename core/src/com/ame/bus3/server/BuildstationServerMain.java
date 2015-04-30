@@ -1,6 +1,7 @@
 package com.ame.bus3.server;
 
 import com.ame.bus3.common.Coordinate;
+import com.ame.bus3.common.GameMap;
 import com.ame.bus3.common.TileRegisterer;
 import com.ame.bus3.common.Tiles.Wall;
 import com.ame.bus3.common.Variables;
@@ -11,7 +12,22 @@ import com.ame.bus3.common.Variables;
  *
  */
 public class BuildstationServerMain {
-	public static ServerNetworkController serverNetworkController;
+	public static BuildstationServerMain instance;
+	public static boolean isActive = false;
+
+	public static BuildstationServerMain getInstance() {
+		if (instance == null) {
+			instance = new BuildstationServerMain();
+			return instance;
+		}
+		else {
+			return instance;
+		}
+
+	}
+
+	public ServerNetworkController serverNetworkController;
+	public GameMap map = new GameMap(true);
 
 	/**
 	 * Starts the server.
@@ -20,12 +36,13 @@ public class BuildstationServerMain {
 		//noinspection deprecation
 		Runtime.runFinalizersOnExit(true);	// Yes, I know this is unsafe, but there isn't really any other way to run code on jvm exit and then remove the code at runtime.
 
-		Variables.isServer = true;	// Make sure this is done first.
+		isActive = true;
+		instance = this;
 
-		TileRegisterer.load();		// Registerers tiles.
+		TileRegisterer.load(true);		// Registerers tiles.
 		System.out.println("[Info] Loaded tiles.");
 
-		Variables.map.fill(new Coordinate(0, 0, 0, "default"), new Coordinate(15, 15, 0, "default"), new Wall(new Coordinate(0, 0, 0, "temp")));
+		map.fill(new Coordinate(0, 0, 0, "default"), new Coordinate(15, 15, 0, "default"), new Wall(true));
 		System.out.println("[Info] Populated map.");
 
 		Variables.port = 25566;

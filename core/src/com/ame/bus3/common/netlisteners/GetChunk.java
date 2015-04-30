@@ -3,6 +3,7 @@ package com.ame.bus3.common.netlisteners;
 import com.ame.bus3.common.Coordinate;
 import com.ame.bus3.common.Tile;
 import com.ame.bus3.common.Variables;
+import com.ame.bus3.server.BuildstationServerMain;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
@@ -17,7 +18,7 @@ public class GetChunk extends Listener {
 	@Override
 	public void received(Connection connection, Object object) {
 		if (object instanceof GetChunkPacket) {
-			connection.sendTCP(Variables.map.getChunk(((GetChunkPacket) object).location));
+			PlaceChunk.send(BuildstationServerMain.getInstance().map.getChunk(((GetChunkPacket) object).location), connection);
 			WaitUntil.send(connection, ((GetChunkPacket) object).waitingString);
 		}
 	}
@@ -40,7 +41,7 @@ public class GetChunk extends Listener {
 		WaitUntil.wait("got" + randInt);
 	}
 
-	private static class GetChunkPacket {
+	public static class GetChunkPacket {
 		public GetChunkPacket() {}
 
 		public GetChunkPacket(Coordinate location, String waitingString) {

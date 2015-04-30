@@ -33,6 +33,7 @@ public class ClientNetworkController {
 	}
 
 	public Client client;
+	protected static boolean isHeadless = false;
 
 	/**
 	 * Prompts the user for the IP and port to connect to. Doesn't actually connect though.
@@ -40,6 +41,12 @@ public class ClientNetworkController {
 	public static void promptIPPort() {
 		String[] serverPortIPSplit = new String[0];
 		String serverPortIP;
+
+		if (isHeadless) {
+			Variables.serverIP = "127.0.0.1";
+			Variables.port = 25566;
+			return;
+		}
 
 		while (true) {	// Prompt the user for the ip and port.
 			serverPortIP = Utilities.popupPrompt("BuildStation", "Enter a IP/Port to connect to:", "127.0.0.1/25566");

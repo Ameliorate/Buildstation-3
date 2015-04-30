@@ -1,5 +1,6 @@
 package com.ame.bus3.common;
 
+import com.ame.bus3.server.BuildstationServerMain;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
@@ -20,7 +21,7 @@ public class Chunk {
 
 	@Override
 	protected void finalize() throws Throwable {
-		if (Variables.isServer) {
+		if (BuildstationServerMain.isActive) {
 			Kryo kryo = new Kryo();		// It would probably be best to find another way to not have to create an entire kryo instance.
 			Output output = new Output(new FileOutputStream("map/" + location.getLevel() + "/" + location.getX() + "/" + location.getY() + "chunk.busmap"));
 

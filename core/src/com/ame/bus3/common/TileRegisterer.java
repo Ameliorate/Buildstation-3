@@ -12,8 +12,8 @@ public class TileRegisterer {
 	/**
 	 * Used for creating and loading new tiles.
 	 */
-	public static void load() {
-		tiles.put("Wall", new Wall());	// New tiles go here.
+	public static void load(boolean isServer) {
+		tiles.put("Wall", new Wall(isServer));	// New tiles go here.
 	}
 
 	/**

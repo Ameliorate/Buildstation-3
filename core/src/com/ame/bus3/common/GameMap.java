@@ -10,7 +10,15 @@ import java.util.WeakHashMap;
  * @author Amelorate
  */
 public class GameMap {
+	/**
+	 * @param isServer If this game map is acting in server mode or client mode.
+	 */
+	public GameMap(boolean isServer) {
+		this.isServer = isServer;
+	}
+
 	private WeakHashMap<Coordinate, Chunk> mapChunkView = new WeakHashMap<Coordinate, Chunk>();
+	private boolean isServer;
 
 	/**
 	 * Gets a chunk over the network if it isn't locally stored.
@@ -20,12 +28,12 @@ public class GameMap {
 		chunkLocation = chunkLocation.setZ(0);
 		Chunk gettingChunk = mapChunkView.get(chunkLocation);
 
-		if (gettingChunk == null && !Variables.isServer) {
-			GetChunk.sendWait(chunkLocation, BuildstationClientMain.clientNetworkController.client);
+		if (gettingChunk == null && !isServer) {
+			GetChunk.sendWait(chunkLocation, BuildstationClientMain.getInstance().clientNetworkController.client);
 			gettingChunk = mapChunkView.get(chunkLocation);
 			return gettingChunk;
 		}
-		else if (gettingChunk == null && Variables.isServer) {
+		else if (gettingChunk == null && isServer) {
 			gettingChunk = Chunk.loadChunkFromDisc(chunkLocation);
 			mapChunkView.put(chunkLocation, gettingChunk);
 			return gettingChunk;
@@ -43,7 +51,7 @@ public class GameMap {
 		Chunk gettingChunk = getChunk(chunkLocation);
 		Tile gettingTile = gettingChunk.tiles.get(relativeTilePosition);
 
-		if (gettingTile == null && location.getZ() == 0 && Variables.isServer) {
+		if (gettingTile == null && location.getZ() == 0 && isServer) {
 			spawn(location, "Wall");
 			gettingTile = get(location);	// Hopefully this won't break anything or cause infinite loops.
 		}
@@ -85,7 +93,7 @@ public class GameMap {
 	 */
 	public void move(Coordinate source, Coordinate destination) {
 		Tile moving = get(source);
-		moving.setPosition(destination);	// This will eventually end up calling moveRaw, if you were wondering. Or they could do the steps of moveRaw themselves if they were crazy.
+		moving.setPosition(destination, isServer);	// This will eventually end up calling moveRaw, if you were wondering. Or they could do the steps of moveRaw themselves if they were crazy.
 	}
 
 	/**
@@ -105,7 +113,7 @@ public class GameMap {
 		if (spawner == null)
 			throw new IllegalArgumentException("Nonexistent tile");
 		else
-			spawner.clone(location);
+			spawner.clone(location, isServer);
 	}
 
 	/**
@@ -117,7 +125,7 @@ public class GameMap {
 		for (int x = start.getX(); x <= finish.getX(); x++)
 			for (int y = start.getY(); y <= finish.getX(); y++)
 				for (int z = start.getZ(); z <= finish.getZ(); z++) {
-					fillingTile.clone(new Coordinate(x, y, z, start.getLevel()));
+					fillingTile.clone(new Coordinate(x, y, z, start.getLevel()), isServer);
 				}
 	}
 }

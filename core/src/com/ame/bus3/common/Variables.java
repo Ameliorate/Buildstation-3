@@ -6,11 +6,6 @@ package com.ame.bus3.common;
  */
 public class Variables {
 	/**
-	 * Stores if it is running in client or server mode.
-	 */
-	public static boolean isServer;
-	
-	/**
 	 * The IP address of the server being connected to.
 	 */
 	public static String serverIP;
@@ -19,9 +14,4 @@ public class Variables {
 	 * Which port to use when connecting to a client/server via TCP.
 	 */
 	public static int port = 25566;
-
-	/**
-	 * The main map of the game.
-	 */
-	public static GameMap map = new GameMap();
 }

@@ -1,5 +1,6 @@
 package com.ame.bus3.common.netlisteners;
 
+import com.ame.bus3.client.BuildstationClientMain;
 import com.ame.bus3.common.Chunk;
 import com.ame.bus3.common.Tile;
 import com.ame.bus3.common.Variables;
@@ -13,8 +14,9 @@ import com.esotericsoftware.kryonet.Listener;
 public class PlaceChunk extends Listener {
 	@Override
 	public void received(Connection connection, Object object) {
-		if (object instanceof Chunk)
-			Variables.map.placeChunk((Chunk) object, ((Chunk) object).location);
+		if (object instanceof Chunk) {
+			BuildstationClientMain.getInstance().map.placeChunk((Chunk) object, ((Chunk) object).location);
+		}
 	}
 
 	public static void send(Chunk chunk, Connection connection) {
