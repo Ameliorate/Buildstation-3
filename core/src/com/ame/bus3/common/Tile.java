@@ -9,26 +9,27 @@ public interface Tile {
 	 * Creates a new copy of the tile in a location.
 	 * @param location The location to clone this to.
 	 */
-    public void clone(Coordinate location, boolean isServer);
+    void clone(Coordinate location, boolean isServer);
 
 	/**
 	 * Called whenever the tile is being rendered. Can be used for animations or the like.
 	 * @return Returns the object's current spritestate.
 	 */
-	public SpriteState renderTick();
+	SpriteState renderTick();
 
 	/**
 	 * Sets the location of the object to the given location.
 	 */
-	public void setPosition(Coordinate location, boolean isServer);
+	void setPosition(Coordinate location, boolean isServer);
 
 	/**
 	 * Gets the position of the tile.
 	 */
-	public Coordinate getPosition();
+	Coordinate getPosition();
 
 	/**
 	 * Gets the type of the tile.
 	 */
-	public String getType();
+	@SuppressWarnings("SameReturnValue")
+	String getType();
 }

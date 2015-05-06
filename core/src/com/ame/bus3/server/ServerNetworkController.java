@@ -25,5 +25,6 @@ public class ServerNetworkController {
 		ListenerList.addListeners(server);
 	}
 
+	@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 	public Server server;
 }

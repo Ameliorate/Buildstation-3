@@ -38,6 +38,7 @@ public class ClientNetworkController {
 	/**
 	 * Prompts the user for the IP and port to connect to. Doesn't actually connect though.
 	 */
+	@SuppressWarnings("WeakerAccess")
 	public static void promptIPPort() {
 		String[] serverPortIPSplit = new String[0];
 		String serverPortIP;

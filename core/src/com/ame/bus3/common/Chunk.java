@@ -1,6 +1,6 @@
 package com.ame.bus3.common;
 
-import com.ame.bus3.server.BuildstationServerMain;
+import com.ame.bus3.server.ServerMain;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
@@ -16,12 +16,14 @@ import java.util.HashMap;
  */
 public class Chunk {
 
+	@SuppressWarnings("unused")
 	public Coordinate location;
-	public HashMap<Coordinate, Tile> tiles = new HashMap<Coordinate, Tile>();
+	@SuppressWarnings("CanBeFinal")
+	public HashMap<Coordinate, Tile> tiles = new HashMap<>();
 
 	@Override
 	protected void finalize() throws Throwable {
-		if (BuildstationServerMain.isActive) {
+		if (ServerMain.isActive) {
 			Kryo kryo = new Kryo();		// It would probably be best to find another way to not have to create an entire kryo instance.
 			Output output = new Output(new FileOutputStream("map/" + location.getLevel() + "/" + location.getX() + "/" + location.getY() + "chunk.busmap"));
 
@@ -34,12 +36,7 @@ public class Chunk {
 	@Override
 	public boolean equals(Object obj) {
 		try {
-			if (tiles.equals(((Chunk) obj).tiles) && location.equals(((Chunk) obj).location)) {
-				return true;
-			}
-			else {
-				return false;
-			}
+			return tiles.equals(((Chunk) obj).tiles) && location.equals(((Chunk) obj).location);
 		}
 		catch (ClassCastException e) {
 			return false;

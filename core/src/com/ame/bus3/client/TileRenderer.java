@@ -2,8 +2,6 @@ package com.ame.bus3.client;
 
 import com.ame.bus3.common.*;
 import com.ame.bus3.common.Tiles.Wall;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -14,12 +12,14 @@ import java.util.HashMap;
  * @author Amelorate
  */
 public class TileRenderer implements Renderer {
+	@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 	public Coordinate[] renderLayers = {new Coordinate(0, 0, 0, "default")};
-	private HashMap<ChunkCacheKey, Chunk> chunkCache = new HashMap<ChunkCacheKey, Chunk>();
+	@SuppressWarnings({"CanBeFinal", "MismatchedQueryAndUpdateOfCollection"})
+	private HashMap<ChunkCacheKey, Chunk> chunkCache = new HashMap<>();
 	private static final int PIXELS_PER_TILE = 48;
 
 	public TileRenderer() {
-		RendererControler.register("TileRender", this);
+		RendererController.register("TileRender", this);
 	}
 
 	@Override
@@ -30,22 +30,22 @@ public class TileRenderer implements Renderer {
 		int tileXPixel;
 		int tileYPixel;
 
-		for(Coordinate cererntLayer : renderLayers) {
+		for(Coordinate currentLayer : renderLayers) {
 			for (int x = -1; x <= 1; x++)
 				for (int y = -1; y <= 1; y++) {
-					int xChunkPos = (cererntLayer.getX() / 16) + x;
-					int yChunkPos = (cererntLayer.getY() / 16) + y;
+					int xChunkPos = (currentLayer.getX() / 16) + x;
+					int yChunkPos = (currentLayer.getY() / 16) + y;
 
-					Chunk cacheingChunk = BuildstationClientMain.getInstance().map.getChunk(new Coordinate(xChunkPos, yChunkPos, 0, cererntLayer.getLevel()));
-					ChunkCacheKey key = new ChunkCacheKey(x, y, cererntLayer.getLevel());
+					Chunk cacheingChunk = ClientMain.getInstance().map.getChunk(new Coordinate(xChunkPos, yChunkPos, 0, currentLayer.getLevel()));
+					ChunkCacheKey key = new ChunkCacheKey(x, y, currentLayer.getLevel());
 					chunkCache.put(key, cacheingChunk);
 				}
 
-			for (int x = cererntLayer.getX(); x <= 15; x++)
-				for (int y = cererntLayer.getY(); y <= 15; y++)
+			for (int x = currentLayer.getX(); x <= 15; x++)
+				for (int y = currentLayer.getY(); y <= 15; y++)
 					for (int z = 0; drawingTile != null; z++) {
 						System.out.println("Render try");
-						drawingTile = BuildstationClientMain.getInstance().map.get(new Coordinate(x, y, z, cererntLayer.getLevel()));
+						drawingTile = ClientMain.getInstance().map.get(new Coordinate(x, y, z, currentLayer.getLevel()));
 						System.out.println("boo");
 						if (drawingTile == null) {
 							System.out.println("null thingy");
@@ -54,7 +54,7 @@ public class TileRenderer implements Renderer {
 							state = drawingTile.renderTick();
 							tileXPixel = drawingTile.getPosition().getX() * PIXELS_PER_TILE;
 							tileYPixel = drawingTile.getPosition().getY() * PIXELS_PER_TILE;
-							drawing = TileTextureControler.get(state.texture);
+							drawing = TileTextureRegistry.get(state.texture);
 
 							batch.draw(drawing, tileXPixel, tileYPixel, 24, 24, 48, 48, 1, 1, state.rotation, 0, 0, 48, 48, state.flipX, state.flipY);
 							/*
@@ -75,8 +75,11 @@ public class TileRenderer implements Renderer {
 			this.level = level;
 		}
 
+		@SuppressWarnings("CanBeFinal")
 		public int x;
+		@SuppressWarnings("CanBeFinal")
 		public int y;
+		@SuppressWarnings("CanBeFinal")
 		public String level;
 
 		@Override

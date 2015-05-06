@@ -1,34 +1,35 @@
 package com.ame.bus3.client;
 
 import com.ame.bus3.common.GameMap;
-import com.ame.bus3.common.TileRegisterer;
-import com.ame.bus3.common.Variables;
+import com.ame.bus3.common.TileRegistry;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
- * Main class for the client. Handles client initalition and rendering.
+ * Main class for the client. Handles client initialisation and rendering.
  * @author Amelorate
  *
  */
-public class BuildstationClientMain extends ApplicationAdapter {
-	public static BuildstationClientMain instance;
+public class ClientMain extends ApplicationAdapter {
+	public static ClientMain instance;
 
 	/**
-	 * Weather or not there is an active client running cerrently.
+	 * Weather or not there is an active client running currently.
 	 */
+	@SuppressWarnings("unused")
 	public static boolean isActive = false;
 
 	public ClientNetworkController clientNetworkController;	// This is public so it can be messed with during tests.
+	@SuppressWarnings("CanBeFinal")
 	public GameMap map = new GameMap(false);
 	private SpriteBatch batch;
 
-	public static BuildstationClientMain getInstance() {
+	public static ClientMain getInstance() {
 		if (instance != null) {
 			return instance;
 		}
 		else {
-			return new BuildstationClientMain();
+			return new ClientMain();
 		}
 	}
 
@@ -40,14 +41,14 @@ public class BuildstationClientMain extends ApplicationAdapter {
 		isActive = true;
 		instance = this;
 
-		TileRegisterer.load(false);
+		TileRegistry.load(false);
 		System.out.println("[Info] Loaded tiles.");
 
 		clientNetworkController = new ClientNetworkController();
 		System.out.println("[Info] Connected to server.");
 		
 		batch = new SpriteBatch();
-		RendererControler.load();
+		RendererController.load();
 		System.out.println("[Info] Loaded rendering.");
 
 		System.out.println("[Info] Finished starting up.");
@@ -55,6 +56,6 @@ public class BuildstationClientMain extends ApplicationAdapter {
 
 	@Override
 	public void render() {
-		RendererControler.render(batch);
+		RendererController.render(batch);
 	}
 }

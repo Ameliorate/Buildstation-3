@@ -15,13 +15,6 @@ public class Coordinate {
 		this.level = level;
 	}
 
-	public Coordinate(Coordinate coordinate) {
-		x = coordinate.x;
-		y = coordinate.y;
-		z = coordinate.z;
-		level = coordinate.level;
-	}
-
 	public int getX() {
 		return x;
 	}
@@ -38,18 +31,21 @@ public class Coordinate {
 		return level;
 	}
 
+	@SuppressWarnings("unused")
 	public Coordinate setX(int newValue) {
 		return new Coordinate(newValue, y, z, level);
 	}
 
+	@SuppressWarnings("unused")
 	public Coordinate setY(int newValue) {
 		return new Coordinate(x, newValue, z, level);
 	}
 
-	public Coordinate setZ(int newValue) {
+	public Coordinate setZ(@SuppressWarnings("SameParameterValue") int newValue) {
 		return new Coordinate(x, y, newValue, level);
 	}
 
+	@SuppressWarnings("unused")
 	public Coordinate setLevel(String newValue) {
 		return new Coordinate(x, y, z, newValue);
 	}

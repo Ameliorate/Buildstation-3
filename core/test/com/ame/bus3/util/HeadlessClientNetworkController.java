@@ -24,5 +24,6 @@ public class HeadlessClientNetworkController extends ClientNetworkController {
 		isHeadless = true;	// I wish I could avoid this, but for some reason, I can't override promptIPPort.
 	}
 
+	@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 	public Client client;
 }

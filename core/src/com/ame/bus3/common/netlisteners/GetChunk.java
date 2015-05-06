@@ -1,9 +1,7 @@
 package com.ame.bus3.common.netlisteners;
 
 import com.ame.bus3.common.Coordinate;
-import com.ame.bus3.common.Tile;
-import com.ame.bus3.common.Variables;
-import com.ame.bus3.server.BuildstationServerMain;
+import com.ame.bus3.server.ServerMain;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
@@ -18,7 +16,7 @@ public class GetChunk extends Listener {
 	@Override
 	public void received(Connection connection, Object object) {
 		if (object instanceof GetChunkPacket) {
-			PlaceChunk.send(BuildstationServerMain.getInstance().map.getChunk(((GetChunkPacket) object).location), connection);
+			PlaceChunk.send(ServerMain.getInstance().map.getChunk(((GetChunkPacket) object).location), connection);
 			WaitUntil.send(connection, ((GetChunkPacket) object).waitingString);
 		}
 	}
@@ -26,6 +24,7 @@ public class GetChunk extends Listener {
 	/**
 	 * Gets a tile from the server.
 	 */
+	@SuppressWarnings("unused")
 	public static void send(Coordinate location, Connection connection) {
 		connection.sendTCP(new GetChunkPacket(location, "got"));	// This isn't thread safe, but it is backwards compatible and doesn't need an extra argument.
 	}
@@ -42,7 +41,8 @@ public class GetChunk extends Listener {
 	}
 
 	public static class GetChunkPacket {
-		public GetChunkPacket() {}
+		@SuppressWarnings("unused")
+		private GetChunkPacket() {}
 
 		public GetChunkPacket(Coordinate location, String waitingString) {
 			this.location = location;

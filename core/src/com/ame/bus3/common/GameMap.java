@@ -1,6 +1,6 @@
 package com.ame.bus3.common;
 
-import com.ame.bus3.client.BuildstationClientMain;
+import com.ame.bus3.client.ClientMain;
 import com.ame.bus3.common.netlisteners.GetChunk;
 
 import java.util.WeakHashMap;
@@ -17,8 +17,9 @@ public class GameMap {
 		this.isServer = isServer;
 	}
 
-	private WeakHashMap<Coordinate, Chunk> mapChunkView = new WeakHashMap<Coordinate, Chunk>();
-	private boolean isServer;
+	@SuppressWarnings("CanBeFinal")
+	private WeakHashMap<Coordinate, Chunk> mapChunkView = new WeakHashMap<>();
+	private final boolean isServer;
 
 	/**
 	 * Gets a chunk over the network if it isn't locally stored.
@@ -29,11 +30,11 @@ public class GameMap {
 		Chunk gettingChunk = mapChunkView.get(chunkLocation);
 
 		if (gettingChunk == null && !isServer) {
-			GetChunk.sendWait(chunkLocation, BuildstationClientMain.getInstance().clientNetworkController.client);
+			GetChunk.sendWait(chunkLocation, ClientMain.getInstance().clientNetworkController.client);
 			gettingChunk = mapChunkView.get(chunkLocation);
 			return gettingChunk;
 		}
-		else if (gettingChunk == null && isServer) {
+		else if (gettingChunk == null) {
 			gettingChunk = Chunk.loadChunkFromDisc(chunkLocation);
 			mapChunkView.put(chunkLocation, gettingChunk);
 			return gettingChunk;
@@ -80,6 +81,7 @@ public class GameMap {
 	/**
 	 * Removes the tile at the given location.
 	 */
+	@SuppressWarnings("WeakerAccess")
 	public void remove(Coordinate location) {
 		Coordinate chunkLocation = new Coordinate(location.getX() / 16, location.getY() / 16, 0, location.getLevel());
 		Coordinate relativeTilePosition = new Coordinate(location.getX() % 16, location.getY() % 16, location.getZ(), location.getLevel());		// Since the location of the tiles in a chunk are relative, I need to use the % operator to find which tile it is at.
@@ -91,6 +93,7 @@ public class GameMap {
 	/**
 	 * Moves the tile at the source to the destination.
 	 */
+	@SuppressWarnings("unused")
 	public void move(Coordinate source, Coordinate destination) {
 		Tile moving = get(source);
 		moving.setPosition(destination, isServer);	// This will eventually end up calling moveRaw, if you were wondering. Or they could do the steps of moveRaw themselves if they were crazy.
@@ -108,8 +111,9 @@ public class GameMap {
 	/**
 	 * Spawns a tile at the given location.
 	 */
-	public void spawn(Coordinate location, String tileName) {
-		Tile spawner = TileRegisterer.getTileTemplate(tileName);
+	@SuppressWarnings("WeakerAccess")
+	public void spawn(Coordinate location, @SuppressWarnings("SameParameterValue") String tileName) {
+		Tile spawner = TileRegistry.getTileTemplate(tileName);
 		if (spawner == null)
 			throw new IllegalArgumentException("Nonexistent tile");
 		else

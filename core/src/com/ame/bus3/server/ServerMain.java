@@ -2,22 +2,22 @@ package com.ame.bus3.server;
 
 import com.ame.bus3.common.Coordinate;
 import com.ame.bus3.common.GameMap;
-import com.ame.bus3.common.TileRegisterer;
+import com.ame.bus3.common.TileRegistry;
 import com.ame.bus3.common.Tiles.Wall;
 import com.ame.bus3.common.Variables;
 
 /**
- * Main class for the server. Handles initalisation.
+ * Main class for the server. Handles initialisation.
  * @author Grant
  *
  */
-public class BuildstationServerMain {
-	public static BuildstationServerMain instance;
+public class ServerMain {
+	public static ServerMain instance;
 	public static boolean isActive = false;
 
-	public static BuildstationServerMain getInstance() {
+	public static ServerMain getInstance() {
 		if (instance == null) {
-			instance = new BuildstationServerMain();
+			instance = new ServerMain();
 			return instance;
 		}
 		else {
@@ -26,6 +26,7 @@ public class BuildstationServerMain {
 
 	}
 
+	@SuppressWarnings("unused")
 	public ServerNetworkController serverNetworkController;
 	public GameMap map = new GameMap(true);
 
@@ -39,7 +40,7 @@ public class BuildstationServerMain {
 		isActive = true;
 		instance = this;
 
-		TileRegisterer.load(true);		// Registerers tiles.
+		TileRegistry.load(true);		// Registers tiles.
 		System.out.println("[Info] Loaded tiles.");
 
 		map.fill(new Coordinate(0, 0, 0, "default"), new Coordinate(15, 15, 0, "default"), new Wall(true));

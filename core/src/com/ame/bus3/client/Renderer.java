@@ -5,9 +5,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 /**
  * @author Amelorate
  */
+@SuppressWarnings("WeakerAccess")
 public interface Renderer {
 	/**
 	 * Called once per render tick.
 	 */
-	public void render(SpriteBatch batch);
+	void render(SpriteBatch batch);
 }

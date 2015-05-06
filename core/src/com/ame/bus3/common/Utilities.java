@@ -14,6 +14,7 @@ public class Utilities {
 	 * @param defaultText The text that starts inside the box.
 	 * @return Returns the text the user entered.
 	 */
+	@SuppressWarnings("SameParameterValue")
 	public static String popupPrompt(String title, String message, String defaultText) {
 		return popupPrompt(title, message, null, defaultText);
 	}
@@ -24,7 +25,8 @@ public class Utilities {
 	 * @param defaultOption The option that is selected when the popup opens.
 	 * @return Returns the choice the user selected or null if the user canceled.
 	 */
-	public static String popupPrompt(String title, String message, String[] choices, String defaultOption) {
+	@SuppressWarnings("WeakerAccess")
+	public static String popupPrompt(String title, String message, @SuppressWarnings("SameParameterValue") String[] choices, String defaultOption) {
 		ImageIcon icon = new ImageIcon();
 		Canvas frame = new Canvas();
 		
@@ -48,7 +50,8 @@ public class Utilities {
 	 * Gives a popup to the user.
 	 * @param icon The icon. You can use some of the constants in JOptionPane for this.
 	 */
-	public static void popupMessage(String title, String message, int icon) {
+	@SuppressWarnings("WeakerAccess")
+	public static void popupMessage(String title, String message, @SuppressWarnings("SameParameterValue") int icon) {
 		Canvas frame = new Canvas();
 		JOptionPane.showMessageDialog(frame,
 			    message,
@@ -74,12 +77,9 @@ public class Utilities {
 	                return false;
 	            }
 	        }
-	        if(ip.endsWith(".")) {
-	                return false;
-	        }
+			return !ip.endsWith(".");
 
-	        return true;
-	    } 
+		}
 	    catch (NumberFormatException nfe) {
 	        return false;
 	    }

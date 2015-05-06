@@ -8,7 +8,7 @@ import java.util.HashMap;
  * Loads tiles.
  * @author Amelorate
  */
-public class TileRegisterer {
+public class TileRegistry {
 	/**
 	 * Used for creating and loading new tiles.
 	 */
@@ -23,5 +23,6 @@ public class TileRegisterer {
 		return tiles.get(getting);
 	}
 
-	private static HashMap<String, Tile> tiles = new HashMap<String, Tile>();
+	@SuppressWarnings("CanBeFinal")
+	private static HashMap<String, Tile> tiles = new HashMap<>();
 }

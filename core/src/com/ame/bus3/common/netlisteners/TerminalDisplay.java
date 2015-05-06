@@ -8,6 +8,7 @@ import com.esotericsoftware.kryonet.Listener;
  * @author Amelorate
  *
  */
+@SuppressWarnings("WeakerAccess")
 public class TerminalDisplay extends Listener {
 	@Override
 	public void received(Connection connection, Object object) {
@@ -15,17 +16,17 @@ public class TerminalDisplay extends Listener {
 			System.out.println(((TerminalDisplayPacket) object).message);
 	}
 
+	@SuppressWarnings("unused")
 	public static void send(String message, Connection connection) {
 		connection.sendTCP(new TerminalDisplayPacket(message));
 	}
 
 	private static class TerminalDisplayPacket {
-		public TerminalDisplayPacket() {}
-
+		@SuppressWarnings("unused")
+		private TerminalDisplayPacket() {}
 		public TerminalDisplayPacket(String message) {
 			this.message = message;
 		}
-
 		public String message;
 	}
 }

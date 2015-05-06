@@ -9,8 +9,10 @@ import java.util.HashMap;
  * Allows waiting until a connection says it has finished a task.
  * @author Amelorate
  */
+@SuppressWarnings("WeakerAccess")
 public class WaitUntil extends Listener {
-	private static HashMap<String, Boolean> finished = new HashMap<String, Boolean>();	// Find a better way to do this.
+	@SuppressWarnings("CanBeFinal")
+	private static HashMap<String, Boolean> finished = new HashMap<>();	// Find a better way to do this.
 
 	@Override
 	public void received(Connection connection, Object object) {
@@ -41,8 +43,8 @@ public class WaitUntil extends Listener {
 	}
 
 	private static class WaitUntilPacket {
-		public WaitUntilPacket() {
-		}
+		@SuppressWarnings("unused")
+		private WaitUntilPacket() {}
 
 		public WaitUntilPacket(String condition) {
 			this.condition = condition;

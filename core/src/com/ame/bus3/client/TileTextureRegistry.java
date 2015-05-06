@@ -8,12 +8,14 @@ import java.util.HashMap;
  * Controls textures for tiles.
  * @author Amelorate
  */
-public class TileTextureControler {
-	private static HashMap<String, Texture> textureHashMap = new HashMap<String, Texture>();
+public class TileTextureRegistry {
+	@SuppressWarnings("CanBeFinal")
+	private static HashMap<String, Texture> textureHashMap = new HashMap<>();
 
 	/**
 	 * Registers a new texture.
 	 */
+	@SuppressWarnings("SameParameterValue")
 	public static void register(String name, String texture) {
 		if (get(name) == null)
 			textureHashMap.put(name, new Texture(texture));

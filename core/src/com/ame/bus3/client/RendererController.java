@@ -10,10 +10,12 @@ import java.util.HashMap;
  * Contains data on renders and allows rendering stuff.
  * @author Amelorate
  */
-public class RendererControler {
+@SuppressWarnings("WeakerAccess")
+public class RendererController {
 	/**
 	 * Determines what renderer is used to render the screen.
 	 */
+	@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 	public static String renderMode = "TileRender";
 
 	/**
@@ -32,21 +34,20 @@ public class RendererControler {
 		batch.end();
 	}
 
-	private static HashMap<String, Renderer> renderers = new HashMap<String, Renderer>();
+	@SuppressWarnings("CanBeFinal")
+	private static HashMap<String, Renderer> renderers = new HashMap<>();
 
 	/**
 	 * Renderers can call this to allow screens to be rendered with them.
 	 */
-	public static void register(String name, Renderer renderer) {
+	public static void register(@SuppressWarnings("SameParameterValue") String name, Renderer renderer) {
 		renderers.put(name, renderer);
 	}
-
-	private static TileRenderer tileRenderer; // New renderers go here.
 
 	/**
 	 * Call this to load the rendererers.
 	 */
 	public static void load() {
-		tileRenderer = new TileRenderer();
+		new TileRenderer();	// Add new renderers here.
 	}
 }

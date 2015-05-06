@@ -15,16 +15,19 @@ public class SpriteState {
 	/**
 	 * The amount of rotation in degrees to be applied to the texture.
 	 */
+	@SuppressWarnings("unused")
 	public int rotation;
 
 	/**
 	 * Flip the texture horizontally?
 	 */
+	@SuppressWarnings("CanBeFinal")
 	public boolean flipX = false;
 
 	/**
 	 * Flip the texture vertically?
 	 */
+	@SuppressWarnings("CanBeFinal")
 	public boolean flipY = false;
 
 	@Override
