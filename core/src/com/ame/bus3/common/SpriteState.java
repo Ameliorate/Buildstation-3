@@ -1,5 +1,7 @@
 package com.ame.bus3.common;
 
+import java.util.Objects;
+
 /**
  * Stores details about how a tile is rendered.
  * @author Amelorate
@@ -24,4 +26,13 @@ public class SpriteState {
 	 * Flip the texture vertically?
 	 */
 	public boolean flipY = false;
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof SpriteState)) {
+			return false;
+		}
+		SpriteState asSpriteState = (SpriteState)  obj;
+		return Objects.equals(asSpriteState.texture, texture) && asSpriteState.flipX == flipX && asSpriteState.flipY == flipY && asSpriteState.rotation == rotation;
+	}
 }

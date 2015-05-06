@@ -31,6 +31,21 @@ public class Chunk {
 		super.finalize();
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		try {
+			if (tiles.equals(((Chunk) obj).tiles) && location.equals(((Chunk) obj).location)) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		catch (ClassCastException e) {
+			return false;
+		}
+	}
+
 	/**
 	 * Load a chunk from the disc at a specific point.
 	 */

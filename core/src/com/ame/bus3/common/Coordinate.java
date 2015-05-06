@@ -67,7 +67,16 @@ public class Coordinate {
 	public int hashCode() {
 		return toString().hashCode();	// This probably does have it's flaws, but it's better than the alternatives.
 	}
-	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Coordinate)) {
+			return false;
+		}
+		Coordinate asCoordinate = (Coordinate) obj;
+		return asCoordinate.getX() == x && asCoordinate.getY() == y && asCoordinate.getZ() == z && asCoordinate.getLevel().equals(level);
+	}
+
 	private int x;
 	private int y;
 	private int z;
