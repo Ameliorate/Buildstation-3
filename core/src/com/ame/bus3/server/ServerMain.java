@@ -1,10 +1,7 @@
 package com.ame.bus3.server;
 
-import com.ame.bus3.common.Coordinate;
-import com.ame.bus3.common.GameMap;
-import com.ame.bus3.common.TileRegistry;
+import com.ame.bus3.common.*;
 import com.ame.bus3.common.Tiles.Wall;
-import com.ame.bus3.common.Variables;
 
 /**
  * Main class for the server. Handles initialisation.
@@ -28,7 +25,7 @@ public class ServerMain {
 
 	@SuppressWarnings("unused")
 	public ServerNetworkController serverNetworkController;
-	public GameMap map = new GameMap(true);
+	public World world = new World(true);
 
 	/**
 	 * Starts the server.
@@ -40,10 +37,10 @@ public class ServerMain {
 		isActive = true;
 		instance = this;
 
-		TileRegistry.load(true);		// Registers tiles.
+		TileRegistry.load();		// Registers tiles.
 		System.out.println("[Info] Loaded tiles.");
 
-		map.fill(new Coordinate(0, 0, 0, "default"), new Coordinate(15, 15, 0, "default"), new Wall(true));
+		world.map.fill(new Coordinate(0, 0, 0, "default"), new Coordinate(15, 15, 0, "default"), new Wall());
 		System.out.println("[Info] Populated map.");
 
 		Variables.port = 25566;

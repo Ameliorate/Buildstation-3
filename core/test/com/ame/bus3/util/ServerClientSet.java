@@ -5,6 +5,7 @@ import com.ame.bus3.common.Coordinate;
 import com.ame.bus3.common.GameMap;
 import com.ame.bus3.common.TileRegistry;
 import com.ame.bus3.common.Tiles.Wall;
+import com.ame.bus3.common.World;
 import com.ame.bus3.server.ServerMain;
 import com.ame.bus3.server.ServerNetworkController;
 
@@ -35,13 +36,13 @@ public class ServerClientSet {
 	public static void becomeClient() {
 		ClientMain.instance = new ClientMain();
 		ServerMain.instance = new ServerMain();
-		ServerMain.getInstance().map.fill(new Coordinate(0, 0, 0, "default"), new Coordinate(15, 15, 0, "default"), new Wall(true));
+		ServerMain.getInstance().world.map.fill(new Coordinate(0, 0, 0, "default"), new Coordinate(15, 15, 0, "default"), new Wall());
 		serverNetworkController = new ServerNetworkController();
 		ServerMain.getInstance().serverNetworkController = serverNetworkController;
 		//noinspection deprecation
 		Runtime.runFinalizersOnExit(true);	// Yes, I know this is unsafe, but there isn't really any other way to run code on jvm exit and then remove the code at runtime.
 		ClientMain.isActive = true;
-		TileRegistry.load(false);
+		TileRegistry.load();
 		try {
 			clientNetworkController = new HeadlessClientNetworkController();
 			ClientMain.getInstance().clientNetworkController = clientNetworkController;
@@ -56,12 +57,12 @@ public class ServerClientSet {
 	 */
 	@SuppressWarnings("unused")
 	public static void becomeServer() {
-		ServerMain.getInstance().map = new GameMap(true);
+		ServerMain.getInstance().world = new World(true);
 		//noinspection deprecation
 		Runtime.runFinalizersOnExit(true);	// Yes, I know this is unsafe, but there isn't really any other way to run code on jvm exit and then remove the code at runtime.
 		ServerMain.isActive = true;
-		TileRegistry.load(true);
-		ServerMain.getInstance().map.fill(new Coordinate(0, 0, 0, "default"), new Coordinate(15, 15, 0, "default"), new Wall(new Coordinate(0, 0, 0, "temp"), true));
+		TileRegistry.load();
+		ServerMain.getInstance().world.map.fill(new Coordinate(0, 0, 0, "default"), new Coordinate(15, 15, 0, "default"), new Wall());
 		serverNetworkController = new ServerNetworkController();
 		ServerMain.getInstance().serverNetworkController = serverNetworkController;
 	}

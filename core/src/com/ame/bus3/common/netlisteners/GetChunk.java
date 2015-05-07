@@ -16,7 +16,7 @@ public class GetChunk extends Listener {
 	@Override
 	public void received(Connection connection, Object object) {
 		if (object instanceof GetChunkPacket) {
-			PlaceChunk.send(ServerMain.getInstance().map.getChunk(((GetChunkPacket) object).location), connection);
+			PlaceChunk.send(ServerMain.getInstance().world.map.getChunk(((GetChunkPacket) object).location), connection);
 			WaitUntil.send(connection, ((GetChunkPacket) object).waitingString);
 		}
 	}

@@ -9,7 +9,7 @@ public interface Tile {
 	 * Creates a new copy of the tile in a location.
 	 * @param location The location to clone this to.
 	 */
-    void clone(Coordinate location, boolean isServer);
+    void clone(Coordinate location, World world);
 
 	/**
 	 * Called whenever the tile is being rendered. Can be used for animations or the like.
@@ -20,7 +20,7 @@ public interface Tile {
 	/**
 	 * Sets the location of the object to the given location.
 	 */
-	void setPosition(Coordinate location, boolean isServer);
+	void setPosition(Coordinate location, World world);
 
 	/**
 	 * Gets the position of the tile.

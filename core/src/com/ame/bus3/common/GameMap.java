@@ -11,15 +11,15 @@ import java.util.WeakHashMap;
  */
 public class GameMap {
 	/**
-	 * @param isServer If this game map is acting in server mode or client mode.
+	 * @param containingWorld The world containing this gamemap object.
 	 */
-	public GameMap(boolean isServer) {
-		this.isServer = isServer;
+	public GameMap(World containingWorld) {
+		this.containingWorld = containingWorld;
 	}
 
 	@SuppressWarnings("CanBeFinal")
 	private WeakHashMap<Coordinate, Chunk> mapChunkView = new WeakHashMap<>();
-	private final boolean isServer;
+	private final World containingWorld;
 
 	/**
 	 * Gets a chunk over the network if it isn't locally stored.
@@ -29,7 +29,7 @@ public class GameMap {
 		chunkLocation = chunkLocation.setZ(0);
 		Chunk gettingChunk = mapChunkView.get(chunkLocation);
 
-		if (gettingChunk == null && !isServer) {
+		if (gettingChunk == null && !containingWorld.isServer()) {
 			GetChunk.sendWait(chunkLocation, ClientMain.getInstance().clientNetworkController.client);
 			gettingChunk = mapChunkView.get(chunkLocation);
 			return gettingChunk;
@@ -52,7 +52,7 @@ public class GameMap {
 		Chunk gettingChunk = getChunk(chunkLocation);
 		Tile gettingTile = gettingChunk.tiles.get(relativeTilePosition);
 
-		if (gettingTile == null && location.getZ() == 0 && isServer) {
+		if (gettingTile == null && location.getZ() == 0 && containingWorld.isServer()) {
 			spawn(location, "Wall");
 			gettingTile = get(location);	// Hopefully this won't break anything or cause infinite loops.
 		}
@@ -96,7 +96,7 @@ public class GameMap {
 	@SuppressWarnings("unused")
 	public void move(Coordinate source, Coordinate destination) {
 		Tile moving = get(source);
-		moving.setPosition(destination, isServer);	// This will eventually end up calling moveRaw, if you were wondering. Or they could do the steps of moveRaw themselves if they were crazy.
+		moving.setPosition(destination, containingWorld);	// This will eventually end up calling moveRaw, if you were wondering. Or they could do the steps of moveRaw themselves if they were crazy.
 	}
 
 	/**
@@ -117,7 +117,7 @@ public class GameMap {
 		if (spawner == null)
 			throw new IllegalArgumentException("Nonexistent tile");
 		else
-			spawner.clone(location, isServer);
+			spawner.clone(location, containingWorld);
 	}
 
 	/**
@@ -129,7 +129,7 @@ public class GameMap {
 		for (int x = start.getX(); x <= finish.getX(); x++)
 			for (int y = start.getY(); y <= finish.getX(); y++)
 				for (int z = start.getZ(); z <= finish.getZ(); z++) {
-					fillingTile.clone(new Coordinate(x, y, z, start.getLevel()), isServer);
+					fillingTile.clone(new Coordinate(x, y, z, start.getLevel()), containingWorld);
 				}
 	}
 }

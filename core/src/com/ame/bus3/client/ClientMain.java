@@ -2,6 +2,7 @@ package com.ame.bus3.client;
 
 import com.ame.bus3.common.GameMap;
 import com.ame.bus3.common.TileRegistry;
+import com.ame.bus3.common.World;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -21,7 +22,7 @@ public class ClientMain extends ApplicationAdapter {
 
 	public ClientNetworkController clientNetworkController;	// This is public so it can be messed with during tests.
 	@SuppressWarnings("CanBeFinal")
-	public GameMap map = new GameMap(false);
+	public World world = new World(false);
 	private SpriteBatch batch;
 
 	public static ClientMain getInstance() {
@@ -41,7 +42,7 @@ public class ClientMain extends ApplicationAdapter {
 		isActive = true;
 		instance = this;
 
-		TileRegistry.load(false);
+		TileRegistry.load();
 		System.out.println("[Info] Loaded tiles.");
 
 		clientNetworkController = new ClientNetworkController();
@@ -56,6 +57,6 @@ public class ClientMain extends ApplicationAdapter {
 
 	@Override
 	public void render() {
-		RendererController.render(batch);
+		RendererController.render(batch, world);
 	}
 }

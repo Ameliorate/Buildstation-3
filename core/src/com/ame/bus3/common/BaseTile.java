@@ -11,14 +11,9 @@ public abstract class BaseTile implements Tile {
 	protected BaseTile() {}
 
 	@SuppressWarnings("WeakerAccess")
-	public BaseTile(Coordinate location, boolean isServer) {
+	public BaseTile(Coordinate location, World world) {
 		position = location;
-		if (isServer) {
-			ServerMain.getInstance().map.place(this, position);
-		}
-		if (!isServer) {
-			ClientMain.getInstance().map.place(this, position);
-		}
+		world.map.place(this, position);
 	}
 
 	@SuppressWarnings("CanBeFinal")
@@ -32,13 +27,8 @@ public abstract class BaseTile implements Tile {
 	}
 
 	@Override
-	public void setPosition(Coordinate location, boolean isServer) {
-		if (isServer) {
-			ServerMain.getInstance().map.moveRaw(position, location);
-		}
-		if (!isServer) {
-			ClientMain.getInstance().map.moveRaw(position, location);
-		}
+	public void setPosition(Coordinate location, World world) {
+		world.map.moveRaw(position, location);
 		position = location;
 	}
 

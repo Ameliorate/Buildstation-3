@@ -17,8 +17,9 @@ public class TileTextureRegistry {
 	 */
 	@SuppressWarnings("SameParameterValue")
 	public static void register(String name, String texture) {
-		if (get(name) == null)
+		if (get(name) == null && ClientMain.isActive) {
 			textureHashMap.put(name, new Texture(texture));
+		}
 	}
 
 	/**
