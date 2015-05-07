@@ -14,6 +14,6 @@ public class World {
 		return isServer;
 	}
 
-	private boolean isServer;
-	public GameMap map;
+	private final boolean isServer;
+	public final GameMap map;
 }

@@ -1,6 +1,5 @@
 package com.ame.bus3.client;
 
-import com.ame.bus3.common.GameMap;
 import com.ame.bus3.common.TileRegistry;
 import com.ame.bus3.common.World;
 import com.badlogic.gdx.ApplicationAdapter;

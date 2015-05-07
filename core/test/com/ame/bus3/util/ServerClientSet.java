@@ -2,7 +2,6 @@ package com.ame.bus3.util;
 
 import com.ame.bus3.client.ClientMain;
 import com.ame.bus3.common.Coordinate;
-import com.ame.bus3.common.GameMap;
 import com.ame.bus3.common.TileRegistry;
 import com.ame.bus3.common.Tiles.Wall;
 import com.ame.bus3.common.World;

@@ -1,8 +1,5 @@
 package com.ame.bus3.common;
 
-import com.ame.bus3.client.ClientMain;
-import com.ame.bus3.server.ServerMain;
-
 /**
  * The abstract class for basic tiles.
  * @author Amelorate

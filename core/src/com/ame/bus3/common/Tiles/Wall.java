@@ -1,11 +1,9 @@
 package com.ame.bus3.common.Tiles;
 
-import com.ame.bus3.client.ClientMain;
 import com.ame.bus3.client.TileTextureRegistry;
 import com.ame.bus3.common.BaseTile;
 import com.ame.bus3.common.Coordinate;
 import com.ame.bus3.common.World;
-import com.ame.bus3.server.ServerMain;
 
 /**
  * A simple wall.
