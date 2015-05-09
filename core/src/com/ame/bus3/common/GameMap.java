@@ -28,7 +28,7 @@ public class GameMap {
 		for (int x = start.getX(); x <= finish.getX(); x++) {
 			for (int y = start.getY(); y <= finish.getX(); y++) {
 				for (int z = start.getZ(); z <= finish.getZ(); z++) {
-					action.invoke(x, y, z);
+					action.invoke(new Coordinate(x, y, z, start.getLevel()));
 				}
 			}
 		}
@@ -139,10 +139,14 @@ public class GameMap {
 	 * @param fillingTile The tile you are filling the area with.
 	 */
 	public void fill(Coordinate start, Coordinate finish, Tile fillingTile) {
-		threeDimensionalForEach(start, finish, (x, y, z) -> fillingTile.clone(new Coordinate(x, y, z, start.getLevel()), containingWorld));
+		threeDimensionalForEach(start, finish, location -> fillingTile.clone(location, containingWorld));
 	}
 
 	public void tileForEach(Coordinate start, Coordinate finish, ThreeDimensionalTileIterator action) {
-		threeDimensionalForEach(start, finish, (x, y, z) -> action.invoke(get(new Coordinate(x, y, z, start.getLevel()))));		// I'm really starting to like lambdas.
+		threeDimensionalForEach(start, finish, location -> action.invoke(get(location), location));		// I'm really starting to like lambdas.
+	}
+
+	public void chunkForEach(Coordinate start, Coordinate finish, ThreeDimensionalChunkIterator action) {
+		threeDimensionalForEach(start, finish, location -> action.invoke(getChunk(location), location));
 	}
 }

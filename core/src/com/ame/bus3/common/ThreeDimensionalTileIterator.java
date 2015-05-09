@@ -6,5 +6,5 @@ package com.ame.bus3.common;
  */
 @FunctionalInterface
 public interface ThreeDimensionalTileIterator {
-	void invoke(Tile tile);
+	void invoke(Tile tile, Coordinate location);
 }
