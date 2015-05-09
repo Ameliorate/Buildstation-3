@@ -22,6 +22,19 @@ public class GameMap {
 	private final World containingWorld;
 
 	/**
+	 * Loop over an x, y, and z plane using lambdas. Removes quite a bit of code sometimes.
+	 */
+	public static void threeDimensionalForEach(Coordinate start, Coordinate finish, ThreeDimensionalIterator action) {
+		for (int x = start.getX(); x <= finish.getX(); x++) {
+			for (int y = start.getY(); y <= finish.getX(); y++) {
+				for (int z = start.getZ(); z <= finish.getZ(); z++) {
+					action.invoke(x, y, z);
+				}
+			}
+		}
+	}
+
+	/**
 	 * Gets a chunk over the network if it isn't locally stored.
 	 * @param chunkLocation The location of the chunk. Make sure to divide x and y by 16, and z is ignored.
 	 */
@@ -126,10 +139,10 @@ public class GameMap {
 	 * @param fillingTile The tile you are filling the area with.
 	 */
 	public void fill(Coordinate start, Coordinate finish, Tile fillingTile) {
-		for (int x = start.getX(); x <= finish.getX(); x++)
-			for (int y = start.getY(); y <= finish.getX(); y++)
-				for (int z = start.getZ(); z <= finish.getZ(); z++) {
-					fillingTile.clone(new Coordinate(x, y, z, start.getLevel()), containingWorld);
-				}
+		threeDimensionalForEach(start, finish, (x, y, z) -> fillingTile.clone(new Coordinate(x, y, z, start.getLevel()), containingWorld));
+	}
+
+	public void tileForEach(Coordinate start, Coordinate finish, ThreeDimensionalTileIterator action) {
+		threeDimensionalForEach(start, finish, (x, y, z) -> action.invoke(get(new Coordinate(x, y, z, start.getLevel()))));		// I'm really starting to like lambdas.
 	}
 }
