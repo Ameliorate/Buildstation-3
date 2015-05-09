@@ -18,7 +18,7 @@ public class GameMap {
 	}
 
 	@SuppressWarnings("CanBeFinal")
-	private WeakHashMap<Coordinate, Chunk> mapChunkView = new WeakHashMap<>();
+	private WeakHashMap<ChunkCoordinate, Chunk> mapChunkView = new WeakHashMap<>();
 	private final World containingWorld;
 
 	/**
@@ -38,7 +38,7 @@ public class GameMap {
 	 * Gets a chunk over the network if it isn't locally stored.
 	 * @param chunkLocation The location of the chunk. Make sure to divide x and y by 16, and z is ignored.
 	 */
-	public Chunk getChunk(Coordinate chunkLocation) {
+	public Chunk getChunk(ChunkCoordinate chunkLocation) {
 		chunkLocation = chunkLocation.setZ(0);
 		Chunk gettingChunk = mapChunkView.get(chunkLocation);
 
@@ -60,7 +60,7 @@ public class GameMap {
 	 * Gets the tile at the given location.
 	 */
 	public Tile get(Coordinate location) {
-		Coordinate chunkLocation = new Coordinate(location.getX() / 16, location.getY() / 16, 0, location.getLevel());
+		ChunkCoordinate chunkLocation = new ChunkCoordinate(location, true);
 		Coordinate relativeTilePosition = new Coordinate(location.getX() % 16, location.getY() % 16, location.getZ(), location.getLevel());		// Since the location of the tiles in a chunk are relative, I need to use the % operator to find which tile it is at.
 		Chunk gettingChunk = getChunk(chunkLocation);
 		Tile gettingTile = gettingChunk.tiles.get(relativeTilePosition);
@@ -77,7 +77,7 @@ public class GameMap {
 	 * Puts the given tile in the given location.
 	 */
 	public void place(Tile placing, Coordinate location) {
-		Coordinate chunkLocation = new Coordinate(location.getX() / 16, location.getY() / 16, 0, location.getLevel());
+		ChunkCoordinate chunkLocation = new ChunkCoordinate(location, true);
 		Coordinate relativeTilePosition = new Coordinate(location.getX() % 16, location.getY() % 16, location.getZ(), location.getLevel());		// Since the location of the tiles in a chunk are relative, I need to use the % operator to find which tile it is at.
 		Chunk gettingChunk = getChunk(chunkLocation);
 
@@ -87,7 +87,7 @@ public class GameMap {
 	/**
 	 * Place the given chunk in the given location.
 	 */
-	public void placeChunk(Chunk placing, Coordinate location) {
+	public void placeChunk(Chunk placing, ChunkCoordinate location) {
 		mapChunkView.put(location, placing);
 	}
 
@@ -96,7 +96,7 @@ public class GameMap {
 	 */
 	@SuppressWarnings("WeakerAccess")
 	public void remove(Coordinate location) {
-		Coordinate chunkLocation = new Coordinate(location.getX() / 16, location.getY() / 16, 0, location.getLevel());
+		ChunkCoordinate chunkLocation = new ChunkCoordinate(location, true);
 		Coordinate relativeTilePosition = new Coordinate(location.getX() % 16, location.getY() % 16, location.getZ(), location.getLevel());		// Since the location of the tiles in a chunk are relative, I need to use the % operator to find which tile it is at.
 		Chunk gettingChunk = getChunk(chunkLocation);
 
@@ -147,6 +147,6 @@ public class GameMap {
 	}
 
 	public void chunkForEach(Coordinate start, Coordinate finish, ThreeDimensionalChunkIterator action) {
-		threeDimensionalForEach(start, finish, location -> action.invoke(getChunk(location), location));
+		threeDimensionalForEach(start, finish, location -> action.invoke(getChunk(new ChunkCoordinate(location, false)), location));
 	}
 }

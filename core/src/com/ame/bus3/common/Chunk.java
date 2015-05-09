@@ -17,7 +17,7 @@ import java.util.HashMap;
 public class Chunk {
 
 	@SuppressWarnings("unused")
-	public Coordinate location;
+	public ChunkCoordinate location;
 	@SuppressWarnings("CanBeFinal")
 	public HashMap<Coordinate, Tile> tiles = new HashMap<>();
 
@@ -46,7 +46,7 @@ public class Chunk {
 	/**
 	 * Load a chunk from the disc at a specific point.
 	 */
-	public static Chunk loadChunkFromDisc(Coordinate location) {
+	public static Chunk loadChunkFromDisc(ChunkCoordinate location) {
 		Input input;
 		try {
 			input = new Input(new FileInputStream("map/" + location.getLevel() + "/" + location.getX() + "/" + location.getY() + "chunk.busmap"));

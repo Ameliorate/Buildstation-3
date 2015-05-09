@@ -16,7 +16,7 @@ public abstract class BaseTile implements Tile {
 	@SuppressWarnings("CanBeFinal")
 	protected SpriteState spriteState = new SpriteState();
 	@SuppressWarnings("WeakerAccess")
-	protected Coordinate position = new Coordinate();
+	protected Coordinate position = new Coordinate(0, 0, 0, "temp");
 
 	@Override
 	public SpriteState renderTick() {

@@ -1,18 +1,35 @@
 package com.ame.bus3.common;
 
 /**
- * Holds the location of something on the game map.
  * @author Amelorate
- *
+ * Basically a direct copy from coordinate used for chunk positioning.
  */
-public class Coordinate {
-	private Coordinate() {}
+public class ChunkCoordinate {
+	private ChunkCoordinate() {}
 
-	public Coordinate(int x, int y, int z, String level) {
+	public ChunkCoordinate(int x, int y, int z, String level) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
 		this.level = level;
+	}
+
+	/**
+	 * @param convert Weather to divide z and y by 16 while assigning.
+	 */
+	public ChunkCoordinate(Coordinate coordinate, boolean convert) {
+		if (!convert) {
+			x = coordinate.getX();
+			y = coordinate.getY();
+			z = coordinate.getZ();
+			level = coordinate.getLevel();
+		}
+		else {
+			x = coordinate.getX() / 16;
+			y = coordinate.getY() / 16;
+			z = getZ();
+			level = getLevel();
+		}
 	}
 
 	public int getX() {
@@ -32,22 +49,26 @@ public class Coordinate {
 	}
 
 	@SuppressWarnings("unused")
-	public Coordinate setX(int newValue) {
-		return new Coordinate(newValue, y, z, level);
+	public ChunkCoordinate setX(int newValue) {
+		return new ChunkCoordinate(newValue, y, z, level);
 	}
 
 	@SuppressWarnings("unused")
-	public Coordinate setY(int newValue) {
-		return new Coordinate(x, newValue, z, level);
+	public ChunkCoordinate setY(int newValue) {
+		return new ChunkCoordinate(x, newValue, z, level);
 	}
 
-	public Coordinate setZ(@SuppressWarnings("SameParameterValue") int newValue) {
-		return new Coordinate(x, y, newValue, level);
+	public ChunkCoordinate setZ(@SuppressWarnings("SameParameterValue") int newValue) {
+		return new ChunkCoordinate(x, y, newValue, level);
 	}
 
 	@SuppressWarnings("unused")
-	public Coordinate setLevel(String newValue) {
-		return new Coordinate(x, y, z, newValue);
+	public ChunkCoordinate setLevel(String newValue) {
+		return new ChunkCoordinate(x, y, z, newValue);
+	}
+
+	public Coordinate toCoordinate() {
+		return new Coordinate(x, y, z,level);
 	}
 
 	@Override
