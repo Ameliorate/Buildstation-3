@@ -1,3 +1,6 @@
+# DEPRECATED
+I'll no longer be developing this branch of buildstation. It never really worked out too well, and ended up crashing and burning when I tried to render tiles. Too buggy. I'll possably rewrite this in D or something.
+
 # Buildstation-3
 Buildstation-3 is the latest reposatory of the buildstation game with the client and server rolled into one. It is made in java.
 
